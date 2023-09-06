@@ -30,21 +30,21 @@ function getOmbdData() {
 }
 getOmbdData();
 
-//adds range slider
-// var slider = document.getElementById("test-slider");
-// noUiSlider.create(slider, {
-//   start: [20, 80],
-//   connect: true,
-//   step: 1,
-//   orientation: "horizontal", // 'horizontal' or 'vertical'
-//   range: {
-//     min: 1900,
-//     max: 2023,
-//   },
-// //   format: wNumb({ //styling, 3rd party library
-// //     decimals: 0,
-// //   }),
-// });
+// adds range slider
+var slider = document.getElementById("test-slider");
+noUiSlider.create(slider, {
+  start: [20, 80],
+  connect: true,
+  step: 1,
+  orientation: "horizontal", // 'horizontal' or 'vertical'
+  range: {
+    min: 1900,
+    max: 2023,
+  },
+//   format: wNumb({ //styling, 3rd party library
+//     decimals: 0,
+//   }),
+});
 //USER INTERACTIONS================
 // Handle form submission
 console.log($("#search-form"));
