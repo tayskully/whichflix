@@ -37,3 +37,5 @@ $(document).ready(function () {
   $(".sidenav").sidenav();
   $(".sidenav").sidenav("open");
 });
+
+$(".dropdown-trigger").dropdown();
