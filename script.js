@@ -31,9 +31,7 @@ function getOmbdData() {
 getOmbdData();
 
 //adds range slider
-
-var slider = document.getElementById("test-slider");
-<<<<<<< HEAD
+// var slider = document.getElementById("test-slider");
 // noUiSlider.create(slider, {
 //   start: [20, 80],
 //   connect: true,
@@ -47,34 +45,6 @@ var slider = document.getElementById("test-slider");
 // //     decimals: 0,
 // //   }),
 // });
-=======
-
-var format = {
-  to: function (value) {
-    return Math.round(value);
-  },
-  from: function (value) {
-    return Math.round(value);
-  },
-};
-
-noUiSlider.create(slider, {
-  start: [1900, 2023],
-  connect: true,
-  tooltips: true,
-  step: 1,
-  orientation: "horizontal",
-  range: {
-    min: 1900,
-    max: 2023,
-  },
-  format,
-  //   format: wNumb({ //styling, 3rd party library
-  //     decimals: 0,
-  //   }),
-});
-
->>>>>>> 14fa43dc4fb6cfa1300809e379804b77e201c907
 //USER INTERACTIONS================
 // Handle form submission
 console.log($("#search-form"));
