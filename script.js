@@ -31,18 +31,32 @@ function getOmbdData() {
 getOmbdData();
 
 //adds range slider
+
 var slider = document.getElementById("test-slider");
+
+var format = {
+  to: function (value) {
+    return Math.round(value);
+  },
+  from: function (value) {
+    return Math.round(value);
+  },
+};
+
 noUiSlider.create(slider, {
-  start: [20, 80],
+  start: [1900, 2023],
   connect: true,
+  tooltips: true,
   step: 1,
-  orientation: "horizontal", // 'horizontal' or 'vertical'
+  orientation: "horizontal",
   range: {
     min: 1900,
     max: 2023,
   },
-//   format: wNumb({ //styling, 3rd party library
-//     decimals: 0,
-//   }),
+  format,
+  //   format: wNumb({ //styling, 3rd party library
+  //     decimals: 0,
+  //   }),
 });
+
 //USER INTERACTIONS================
