@@ -31,3 +31,9 @@ function getOmbdData() {
 getOmbdData();
 
 //USER INTERACTIONS================
+
+// INITIALIZATION==================
+$(document).ready(function () {
+  $(".sidenav").sidenav();
+  $(".sidenav").sidenav("open");
+});
