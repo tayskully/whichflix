@@ -32,17 +32,56 @@ getOmbdData();
 
 //adds range slider
 var slider = document.getElementById("test-slider");
-noUiSlider.create(slider, {
-  start: [20, 80],
-  connect: true,
-  step: 1,
-  orientation: "horizontal", // 'horizontal' or 'vertical'
-  range: {
-    min: 1900,
-    max: 2023,
-  },
-//   format: wNumb({ //styling, 3rd party library
-//     decimals: 0,
-//   }),
-});
+// noUiSlider.create(slider, {
+//   start: [20, 80],
+//   connect: true,
+//   step: 1,
+//   orientation: "horizontal", // 'horizontal' or 'vertical'
+//   range: {
+//     min: 1900,
+//     max: 2023,
+//   },
+// //   format: wNumb({ //styling, 3rd party library
+// //     decimals: 0,
+// //   }),
+// });
 //USER INTERACTIONS================
+// Handle form submission
+console.log($("#search-form"));
+$('#search-form').submit(function (event) {
+  event.preventDefault(); // Prevent the form from submitting normally
+  console.log("form clicked")
+  // Get user input from the search input field
+  var searchQuery = $('#search').val();
+
+  // Get selected values from dropdowns
+  var genreValue = $('#genre-dropdown').val();
+  var yearRangeValue = $('#slider').val();
+  var durationValue = $('#duration-dropdown').val();
+  var typeValue = $('#type-dropdown').val();
+
+  // Create an object to store the user's preferences
+  var userPreferences = {
+      searchQuery: searchQuery,
+      genre: genreValue,
+      yearRange: yearRangeValue,
+      duration: durationValue,
+      type: typeValue
+  };
+
+  // Store the user's preferences in localStorage
+  localStorage.setItem('userPreferences', JSON.stringify(userPreferences));
+
+  // You can also retrieve data from localStorage later if needed
+  // var storedPreferences = localStorage.getItem('userPreferences');
+  // var parsedPreferences = JSON.parse(storedPreferences);
+  // console.log(parsedPreferences);
+
+  // For demonstration, we'll just display a confirmation message
+  alert('Your preferences have been saved locally.');
+
+  // Redirect to the results page
+  window.location.href="result-page.html";
+
+  // You can further process the data or update the page content.
+});
