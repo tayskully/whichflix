@@ -23,12 +23,74 @@
         </div>
       </nav>
     </header>
+    <div class="container">
+      <div class="row">
+          <div class="col s3">
+              <div class="input-field">
+                  <select>
+                      <option value="" disabled selected>Genre</option>
+                      <option value="1">Action</option>
+                      <option value="2">Adventure</option>
+                      <option value=“3”>Animation</option>
+                      <option value=“4”>Biography</option>
+                      <option value=“5”>Comedy</option>
+                      <option value=“6”>Crime</option>
+                      <option value=“7”>Documentary</option>
+                      <option value=“8”>Drama</option>
+                      <option value=“9”>Family</option>
+                      <option value=“10”>Fantasy</option>
+                      <option value="11">Film-Noir</option>
+                      <option value="12">History</option>
+                      <option value="13">Horror</option>
+                      <option value="14">Music</option>
+                      <option value="15">Musical</option>
+                      <option value="16">Mystery</option>
+                      <option value="17">Romance</option>
+                      <option value="18">Sci-Fi</option>
+                      <option value="19">Sport</option>
+                      <option value=“20”>Thriller</option>
+                      <option value="21">War</option>
+                      <option value=“22”>Western</option>
+                  </select>
+              </div>
+          </div>  
+           <!-- slider -->
+           <div class="col s3">
+            <p>Year Range: </p> 
+            <input type ="range" id="slider" min="100" />
+          </div>  
+          <div class="col s3">
+            <div class="input-field">
+                <select>
+                    <option value="" disabled selected>Duration</option>
+                    <option value="1">&lt 1 hr</option>
+                    <option value="2">1.5 hrs - 2 hrs</option>
+                    <option value=“3”>2 hrs - 3 hrs</option>
+                    <option value=“4”>&gt 3 hrs</option>
+                </select>
+            </div>
+        </div>
+          <div class="col s3">
+            <div class="input-field">
+                <select>
+                    <option value="" disabled selected>Type</option>
+                    <option value="1">Films/Movies</option>
+                    <option value=“2”>Podcasts</option>
+                    <option value=“3”>TV Series</option>
+                    <option value=“4”>Shorts</option>
+                    <option value=“5”>Video Games</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
     <!-- container -->
     <div class="container valign-wrapper" style="height:100vh">
       <div class="row">
         <div class="col s12 center-align">
-          <!-- slider -->
-          <div id="test-slider"></div>
   
           <!-- form -->
           <form id="search-form">
@@ -60,6 +122,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/nouislider.js"></script>
     <script src="script.js"></script>
-    
+    <script>
+      // Initialize Materialize components
+      $(document).ready(function () {
+          // Dropdown initialization
+          $('select').formSelect();
+      });
+    </script>
   </body>
 </html>

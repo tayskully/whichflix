@@ -38,8 +38,8 @@ noUiSlider.create(slider, {
   step: 1,
   orientation: "horizontal", // 'horizontal' or 'vertical'
   range: {
-    min: 0,
-    max: 100,
+    min: 1900,
+    max: 2023,
   },
 //   format: wNumb({ //styling, 3rd party library
 //     decimals: 0,
