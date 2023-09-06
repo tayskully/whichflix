@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link rel="stylesheet" href="./assets/nouislider.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -24,7 +25,7 @@
     </header>
     <div class="container">
       <div class="row">
-          <div class="col s4">
+          <div class="col s3">
               <div class="input-field">
                   <select>
                       <option value="" disabled selected>Genre</option>
@@ -52,8 +53,13 @@
                       <option value=“22”>Western</option>
                   </select>
               </div>
-          </div>                    
-          <div class="col s4">
+          </div>  
+           <!-- slider -->
+           <div class="col s3">
+            <p>Year Range: </p> 
+            <input type ="range" id="slider" min="100" />
+          </div>  
+          <div class="col s3">
             <div class="input-field">
                 <select>
                     <option value="" disabled selected>Duration</option>
@@ -64,7 +70,7 @@
                 </select>
             </div>
         </div>
-          <div class="col s4">
+          <div class="col s3">
             <div class="input-field">
                 <select>
                     <option value="" disabled selected>Type</option>
@@ -85,6 +91,7 @@
     <div class="container valign-wrapper" style="height:100vh">
       <div class="row">
         <div class="col s12 center-align">
+  
           <!-- form -->
           <form id="search-form">
             <div class="row">
@@ -113,6 +120,7 @@
     <main></main>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./assets/nouislider.js"></script>
     <script src="script.js"></script>
     <script>
       // Initialize Materialize components
