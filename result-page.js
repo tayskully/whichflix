@@ -35,7 +35,28 @@ getOmbdData();
 // INITIALIZATION==================
 $(document).ready(function () {
   $(".sidenav").sidenav();
-  $(".sidenav").sidenav("open");
-});
+  $(".dropdown-trigger").dropdown();
+  var slider = document.getElementById("test-slider");
 
-$(".dropdown-trigger").dropdown();
+  var format = {
+    to: function (value) {
+      return Math.round(value);
+    },
+    from: function (value) {
+      return Math.round(value);
+    },
+  };
+
+  noUiSlider.create(slider, {
+    start: [1900, 2023],
+    connect: true,
+    tooltips: true,
+    step: 1,
+    orientation: "horizontal",
+    range: {
+      min: 1900,
+      max: 2023,
+    },
+    format,
+  });
+});
