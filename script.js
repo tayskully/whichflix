@@ -12,13 +12,17 @@ function getTmbdData() {
     if (response.ok) {
       response.json().then(function (data) {
         console.log(data);
+        getOmbdData(data);
       });
     }
   });
 }
 getTmbdData();
 // fetch request OMDB
-function getOmbdData() {
+for (var i = 0; i<results.length; i++)
+
+var nameFromTMDBData = data.results[i].original_title
+function getOmbdData(data) {
   var queryURL = `http://www.omdbapi.com/?apikey=${apiKeyOmbd}&`;
   fetch(queryURL).then(function (response) {
     if (response.ok) {
