@@ -57,6 +57,22 @@ noUiSlider.create(slider, {
   //     decimals: 0,
   //   }),
 });
+//function to fetch data based on specific genre selection
+function fetchMoviesGenre(){
+  const selectedGenre = document.getElementById("genre-dropdown").value;
+
+//API request to include selected genre
+const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&with_genres=${selectedGenre}`;
+//acquire info from API, convert to json, access data, console log it(for now), catch errors
+fetch(apiUrl)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((error) => {
+    console.error("Error fetching data: ", error);
+  });
+}
 //USER INTERACTIONS================
 // Handle form submission
 console.log($("#search-form"));
