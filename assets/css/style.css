@@ -1,0 +1,105 @@
+/* Header styles */
+
+header {
+    background-color: #111; 
+    padding: 10px 0;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2); 
+    width: 100%; 
+    z-index: 1000; 
+  }
+
+  .brand-logo:hover {
+    color: #ff6600; /* Darker red on hover */
+  }
+  
+  /* Style the navigation links */
+  #nav-mobile li a {
+    font-size: 16px;
+    color: #fff; 
+    text-decoration: none; 
+    transition: color 0.3s ease;
+  }
+  
+  #nav-mobile li a:hover {
+    color: #ff6600; /* Darker color on hover */
+  }
+body {
+    background-color: #121212;
+}
+.center-align {
+    color: white;
+}
+nav {
+    background-color: #000;
+    height: 60px;
+    color: white;
+  }
+  
+  .brand-logo {
+    font-size: 1.5rem;
+    margin-left: 20px;
+    padding: 10px 0;
+  }
+  
+  /* Search form styles */
+  #search-form {
+    margin-top: 50px;
+  }
+  
+  #search {
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  .search-btn {
+    background-color: #e50914; /* Netflix red */
+    font-weight: bold;
+  }
+  
+  /* Container styles */
+  .container {
+    background-color: #111;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Dropdown and slider styles */
+  .select-dropdown {
+    background-color: #222 !important;
+    color: #fff !important;
+  }
+  
+  #duration-dropdown, #type-dropdown {
+    background-color: #222 !important;
+    color: #fff !important;
+  }
+  
+  #test-slider {
+    margin-top: 10px;
+  }
+
+  /* Dropdown option styles */
+.select-dropdown.dropdown-content li span {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff; 
+    padding: 10px 20px;
+    text-transform: uppercase; 
+  }
+  
+  /* Change the font color when hovering over dropdown options */
+  .select-dropdown.dropdown-content li:hover {
+    background-color: #e50914; /* Netflix red */
+  }
+  
+  /* Change the font color of the selected option */
+  .select-dropdown.dropdown-content li.active {
+    background-color: #e50914; /* Netflix red */
+  }
+  
+  /* Footer styles */
