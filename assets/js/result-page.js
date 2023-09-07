@@ -1,6 +1,7 @@
 //DEPENDENCIES ====================
 var apiKeyTmbd = "76c745d0d38df70f6fb5ec449119b744";
 var apiKeyOmbd = "3c12800d";
+// var containerEl = $('#card-container')
 
 //DATA=============================
 
@@ -29,6 +30,8 @@ function getOmbdData() {
   });
 }
 getOmbdData();
+
+
 
 //USER INTERACTIONS================
 
