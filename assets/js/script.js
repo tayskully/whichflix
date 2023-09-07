@@ -57,6 +57,14 @@ noUiSlider.create(slider, {
   //     decimals: 0,
   //   }),
 });
+function getYearRange() {
+  
+  console.log(slider.noUiSlider.get()); //returns an array 
+
+}
+
+
+
 //USER INTERACTIONS================
 // Handle form submission
 console.log($("#search-form"));
