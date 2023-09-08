@@ -31,13 +31,15 @@
 }
 /* Wrapper for all connect elements.
  */
-.noUi-connects {
+.noUi-connect {
   overflow: hidden;
   z-index: 0;
+  
 }
 .noUi-connect,
 .noUi-origin {
   will-change: transform;
+  
   position: absolute;
   z-index: 1;
   top: 0;
@@ -120,7 +122,7 @@
   border-radius: 3px;
 }
 .noUi-connect {
-  background: #3FB8AF;
+  background:#f31414;
 }
 /* Handles and cursors;
  */
