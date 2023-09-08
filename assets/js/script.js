@@ -30,9 +30,6 @@ noUiSlider.create(slider, {
     max: 2023,
   },
   format,
-  //   format: wNumb({ //styling, 3rd party library
-  //     decimals: 0,
-  //   }),
 });
 
 var yearRangeValue = slider.noUiSlider.get();
@@ -49,36 +46,13 @@ function getSliderValues() {
   var endYear = yearRangeValue[1];
   startDate = `${startYear}-01-01`;
   endDate = `${endYear}-12-31`;
-  // console.log(startDate);
-  // console.log(endDate);
   return [startDate, endDate];
 }
 
 function getGenreValue() {
   userGenre = genreDropdown.val();
-  // console.log(userGenre);
   return userGenre;
 }
-
-//fetch request TMBD
-// function getTmbdData() {
-//   slider.noUiSlider.on("change", function () {
-//     yearRangeValue = slider.noUiSlider.get();
-//     console.log(yearRangeValue);
-//     var startYear = yearRangeValue[0];
-//     var endYear = yearRangeValue[1];
-//     const startDate = `${startYear}-01-01`;
-//     const endDate = `${endYear}-12-31`;
-//     console.log(startDate);
-//     console.log(endDate);
-//     updateApiRequest(userGenre, startDate, endDate);
-//   });
-// genreDropdown.on("change", function () {
-//   userGenre = genreDropdown.val();
-//   updateApiRequest(userGenre, startDate, endDate);
-// });
-
-// someInput.on("change", updateApiRequest)
 slider.noUiSlider.on("change", updateApiRequest);
 genreDropdown.on("change", updateApiRequest);
 
@@ -160,12 +134,12 @@ $("#search-form").submit(function (event) {
   // console.log(parsedPreferences);
 
   // For demonstration, we'll just display a confirmation message
-  // alert("Your preferences have been saved locally.");
+  alert("Your preferences have been saved locally.");
 
   updateApiRequest();
 
   // Redirect to the results page
-  // window.location.href = "result-page.html";
+  window.location.href = "result-page.html";
 
   // You can further process the data or update the page content.
 });
