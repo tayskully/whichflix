@@ -58,6 +58,7 @@ function updateApiRequest(userGenre) {
       .then(function (data) {
         if (data) {
           console.log(data.results);
+          getOmbdData(data);
         } else {
           console.log("No data received");
         }
@@ -69,7 +70,7 @@ getTmbdData();
 
 // fetch request OMDB
 function getOmbdData(data) {
-  console.log(data);
+  console.log("omdb received: " + data);
 
   for (var i = 0; i < data.results.length; i++) {
     var nameFromTMDBData = data.results[i].original_title;
@@ -82,7 +83,7 @@ function getOmbdData(data) {
       response.json().then(function (data) {
         console.log(data);
       });
-    }
+    } 
   });
 }
 
