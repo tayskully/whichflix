@@ -29,6 +29,19 @@ body {
 .center-align {
     color: white;
 }
+.nav-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-image: url('/assets/img/whichflix.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left; 
+  background-color: #333; 
+  color: white; 
+  padding: 40px; 
+}
+
 nav {
     background-color: #000;
     height: 60px;
