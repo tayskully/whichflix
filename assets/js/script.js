@@ -38,7 +38,7 @@ function getTmbdData() {
   fetch(queryURL).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        // console.log(data);
+        console.log(data);
         getOmbdData(data);
       });
     }
