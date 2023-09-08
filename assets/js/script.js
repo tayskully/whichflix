@@ -39,6 +39,11 @@ var yearRangeValue = slider.noUiSlider.get();
 
 //FUNCTIONS =======================
 var userGenre = null;
+
+var startYear = yearRangeValue[0];
+var endYear = yearRangeValue[1];
+// console.log(startYear);
+// console.log(endYear);
 //fetch request TMBD
 function getTmbdData() {
   genreDropdown.on("change", function () {
