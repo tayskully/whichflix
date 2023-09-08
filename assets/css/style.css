@@ -11,15 +11,24 @@ header {
   .brand-logo:hover {
     color: #ff6600; /* Darker red on hover */
   }
+  #nav-mobile {
+    display: flex;
+    align-items: center; /* Vertically center the navigation links */
+  }
   
   /* Style the navigation links */
+  #nav-mobile li {
+    margin-right: 20px;
+  }
   #nav-mobile li a {
     font-size: 16px;
     color: #fff; 
     text-decoration: none; 
     transition: color 0.3s ease;
   }
-  
+  nav .brand-logo{
+    position: inherit;
+  }
   #nav-mobile li a:hover {
     color: #ff6600; /* Darker color on hover */
   }
@@ -32,14 +41,14 @@ body {
 .nav-wrap {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   background-image: url('/assets/img/whichflix.png');
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: left; 
+  background-position: left center; 
   background-color: #333; 
   color: white; 
-  padding: 40px; 
+  padding: 20px 40px; 
 }
 
 nav {
@@ -52,7 +61,15 @@ nav {
     font-size: 1.5rem;
     margin-left: 20px;
     padding: 10px 0;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
   }
+  .brand-logo img {
+    height: auto;
+    margin-right: auto;
+  }
+
   
   /* Search form styles */
   #search-form {
@@ -74,9 +91,9 @@ nav {
   /* Container styles */
   .container {
     background-color: #111;
-    padding: 20px;
+    padding: 80px;
     border-radius: 10px;
-    margin-top: 20px;
+    margin-top: 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
   
