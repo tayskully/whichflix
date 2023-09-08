@@ -68,6 +68,42 @@ function updateApiRequest(userGenre) {
 
 getTmbdData();
 
+//tester copy
+getRunTime();
+var userRunTime = null;
+function getRunTime() {
+  runTimeDropdown = $("#duration-dropdown");
+  runTimeDropdown.on("change", function () {
+    var userRunTime = runTimeDropdown.val(); //actual minute value
+    userRunTime = userRunTime.split(" ");
+    console.log("user runtime is " + userRunTime); //an array
+    updateApiRequest2(userRunTime);
+  });
+}
+
+function updateApiRequest2(userRunTime) {
+  if (userRunTime !== null) {
+    var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&include_adult=false&include_video=false&sort_by=popularity.desc&with_runtime.gte=${userRunTime[0]}&with_runtime.lte=${userRunTime[1]}`;
+
+    fetch(queryURL)
+      .then(function (response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error("Error: " + response.statusText);
+          return null;
+        }
+      })
+      .then(function (data) {
+        if (data) {
+          console.log(data);
+        } else {
+          console.log("No data received");
+        }
+      });
+  }
+}
+
 // fetch request OMDB
 function getOmbdData(data) {
   //loops through data received from TMDB fetch request
