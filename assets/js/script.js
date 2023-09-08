@@ -78,13 +78,24 @@ function getOmbdData(data) {
     console.log(correctName);
   }
   var queryURL = `http://www.omdbapi.com/?t=${correctName}&apikey=${apiKeyOmbd}`;
-  fetch(queryURL).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
+
+  fetch(queryURL)
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.error("OMDB Error: " + response.statusText);
+        return null;
+      }
+    })
+
+    .then(function (data) {
+      if (data) {
         console.log(data);
-      });
-    } 
-  });
+      } else {
+        console.log("no data received from OMDB");
+      }
+    });
 }
 
 //USER INTERACTIONS================
