@@ -5,6 +5,7 @@ var apiKeyOmbd = "3c12800d";
 var genreDropdown = $("#genre-dropdown");
 var durationValue = $("#duration-dropdown").val();
 var typeValue = $("#type-dropdown").val();
+var runTimeDropdown = $("#duration-dropdown");
 
 //DATA=============================
 // adds range slider
@@ -38,6 +39,7 @@ var yearRangeValue = slider.noUiSlider.get();
 let userGenre;
 let startDate;
 let endDate;
+let userRunTime;
 
 function getSliderValues() {
   yearRangeValue = slider.noUiSlider.get();
@@ -53,8 +55,21 @@ function getGenreValue() {
   userGenre = genreDropdown.val();
   return userGenre;
 }
+
+function getRunTime() { 
+  userRunTime = runTimeDropdown.val();
+if (userRunTime === null) {
+  userRunTime = "90 120"
+  userRunTime = userRunTime.split(" ");
+  return userRunTime;
+} else {
+  userRunTime = userRunTime.split(" ");
+  return userRunTime;
+}}
+
 slider.noUiSlider.on("change", updateApiRequest);
 genreDropdown.on("change", updateApiRequest);
+runTimeDropdown.on("change", updateApiRequest);
 
 function updateApiRequest() {
   // get all the values from the inputs
@@ -67,12 +82,18 @@ function updateApiRequest() {
   var userGenre = getGenreValue(); // returns a string
   console.log(userGenre);
 
+  //get the runtime value
+  var userRunTime = getRunTime();
+  console.log(userRunTime);
+
   // build the query url
   var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&language=en-US`;
   if (userGenre) queryURL += `&with_genres=${userGenre}`;
   if (sliderValues[0] && sliderValues[1])
     queryURL += `&release_date.gte=${sliderValues[0]}&release_date.lte=${sliderValues[1]}`;
   // queryUrl = `&sort_by=vote_average.desc&vote_count.gte=2500`;
+  if (userRunTime)
+    queryURL += `&with_runtime.gte=${userRunTime[0]}&with_runtime.lte=${userRunTime[1]}`;
 
   // make the request
   fetch(queryURL)
