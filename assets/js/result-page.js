@@ -46,6 +46,32 @@ function displayMovies(data){
   var movieOverview = data.results[1].overview;
   console.log(movieOverview);
 
+  var movieContainer = $('#movie-container');
+
+  movieContainer.innerHTML= "";
+
+  // data.results.forEach(function (data){
+    var cardDiv = $('<div>');
+    cardDiv.attr('class','card');
+
+    
+    var cardContent =`
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="${moviePoster}" alt="${movieTitle}">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">${movieTitle}<i class="material-icons right">more_vert</i></span>
+      <p><a href="#">This is a link</a></p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">${movieTitle}<i class="material-icons right">close</i></span>
+      <p>${movieOverview}</p>
+    </div>
+  `;
+  console.log(cardContent);
+
+  cardDiv.append(cardContent);
+  movieContainer.append(cardDiv);
 
 // });
 }
