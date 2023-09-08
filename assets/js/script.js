@@ -2,6 +2,10 @@
 var apiKeyTmbd = "76c745d0d38df70f6fb5ec449119b744";
 var apiKeyOmbd = "3c12800d";
 
+var genreDropdown = $("#genre-dropdown");
+var durationValue = $("#duration-dropdown").val();
+var typeValue = $("#type-dropdown").val();
+
 //DATA=============================
 // adds range slider
 var slider = document.getElementById("test-slider");
@@ -26,47 +30,68 @@ noUiSlider.create(slider, {
     max: 2023,
   },
   format,
-  //   format: wNumb({ //styling, 3rd party library
-  //     decimals: 0,
-  //   }),
 });
 
+var yearRangeValue = slider.noUiSlider.get();
+
 //FUNCTIONS =======================
-var userGenre = null;
-//fetch request TMBD
-function getTmbdData() {
-  genreDropdown = $("#genre-dropdown");
-  genreDropdown.on("change", function () {
-    var userGenre = genreDropdown.val();
-    updateApiRequest(userGenre);
-  });
+let userGenre;
+let startDate;
+let endDate;
+
+function getSliderValues() {
+  yearRangeValue = slider.noUiSlider.get();
+  // console.log(yearRangeValue);
+  var startYear = yearRangeValue[0];
+  var endYear = yearRangeValue[1];
+  startDate = `${startYear}-01-01`;
+  endDate = `${endYear}-12-31`;
+  return [startDate, endDate];
 }
 
-function updateApiRequest(userGenre) {
-  if (userGenre !== null) {
-    var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&with_genres=${userGenre}&sort_by=vote_average.desc&vote_count.gte=2500`;
-
-    fetch(queryURL)
-      .then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          console.error("Error: " + response.statusText);
-          return null;
-        }
-      })
-      .then(function (data) {
-        if (data) {
-          console.log(data.results);
-          getOmbdData(data);
-        } else {
-          console.log("No data received");
-        }
-      });
-  }
+function getGenreValue() {
+  userGenre = genreDropdown.val();
+  return userGenre;
 }
+slider.noUiSlider.on("change", updateApiRequest);
+genreDropdown.on("change", updateApiRequest);
 
-getTmbdData();
+function updateApiRequest() {
+  // get all the values from the inputs
+
+  // get slider values
+  var sliderValues = getSliderValues(); // returns an array
+  console.log(sliderValues);
+
+  // get genre value
+  var userGenre = getGenreValue(); // returns a string
+  console.log(userGenre);
+
+  // build the query url
+  var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&language=en-US`;
+  if (userGenre) queryURL += `&with_genres=${userGenre}`;
+  if (sliderValues[0] && sliderValues[1])
+    queryURL += `&release_date.gte=${sliderValues[0]}&release_date.lte=${sliderValues[1]}`;
+  // queryUrl = `&sort_by=vote_average.desc&vote_count.gte=2500`;
+
+  // make the request
+  fetch(queryURL)
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.error("Error: " + response.statusText);
+        return null;
+      }
+    })
+    .then(function (data) {
+      if (data) {
+        console.log(data.results);
+      } else {
+        console.log("No data received");
+      }
+    });
+}
 
 // fetch request OMDB
 function getOmbdData(data) {
@@ -106,16 +131,10 @@ $("#search-form").submit(function (event) {
   // Get user input from the search input field
   var searchQuery = $("#search").val();
 
-  // Get selected values from dropdowns
-  var genreValue = $("#genre-dropdown").val();
-  var yearRangeValue = slider.noUiSlider.get();
-  var durationValue = $("#duration-dropdown").val();
-  var typeValue = $("#type-dropdown").val();
-
   // Create an object to store the user's preferences
   var userPreferences = {
     searchQuery: searchQuery,
-    genre: genreValue,
+    genre: userGenre,
     yearRange: yearRangeValue,
     duration: durationValue,
     type: typeValue,
@@ -131,6 +150,8 @@ $("#search-form").submit(function (event) {
 
   // For demonstration, we'll just display a confirmation message
   alert("Your preferences have been saved locally.");
+
+  updateApiRequest();
 
   // Redirect to the results page
   window.location.href = "result-page.html";
