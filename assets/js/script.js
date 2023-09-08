@@ -32,17 +32,39 @@ noUiSlider.create(slider, {
 });
 
 //FUNCTIONS =======================
+var userGenre = null;
 //fetch request TMBD
 function getTmbdData() {
-  var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}`; // use /tv
-  fetch(queryURL).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
-        console.log(data);
-      });
-    }
+  genreDropdown = $("#genre-dropdown");
+  genreDropdown.on("change", function () {
+    var userGenre = genreDropdown.val();
+    updateApiRequest(userGenre);
   });
 }
+
+function updateApiRequest(userGenre) {
+  if (userGenre !== null) {
+    var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&with_genres=${userGenre}&sort_by=vote_average.desc&vote_count.gte=2500`;
+
+    fetch(queryURL)
+      .then(function (response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error("Error: " + response.statusText);
+          return null;
+        }
+      })
+      .then(function (data) {
+        if (data) {
+          console.log(data.results);
+        } else {
+          console.log("No data received");
+        }
+      });
+  }
+}
+
 getTmbdData();
 // fetch request OMDB
 function getOmbdData() {
