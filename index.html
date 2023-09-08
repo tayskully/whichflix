@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Night</title>
-    <link
+    <script src="https://kit.fontawesome.com/f669782858.js" crossorigin="anonymous"></script>
+        <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
@@ -27,27 +28,33 @@
       <div class="row">
         <div class="col s3">
           <div class="input-field">
-            <select id="genre-dropdown" required>
+            <div class="center-align">
+              <i class="fa-solid fa-film fa-beat fa-lg" style="color: #fa0025;"></i>
+            </div>
+            <select id="genre-dropdown">
               <option value="" disabled selected>Genre</option>
-              <option value="28">Action</option>
-              <option value="12">Adventure</option>
-              <option value="16">Animation</option>
-              <option value="35">Comedy</option>
-              <option value="80">Crime</option>
-              <option value="99">Documentary</option>
-              <option value="18">Drama</option>
-              <option value="10751">Family</option>
-              <option value="14">Fantasy</option>
-              <option value="36">History</option>
-              <option value="27">Horror</option>
-              <option value="10402">Music</option>
-              <option value="9648">Mystery</option>
-              <option value="10749">Romance</option>
-              <option value="878">Sci-Fi</option>
-              <option value="10770">TV Movie</option>
-              <option value="53">Thriller</option>
-              <option value="10752">War</option>
-              <option value="37">Western</option>
+              <option value="action">Action</option>
+              <option value="adventure">Adventure</option>
+              <option value="animation">Animation</option>
+              <option value="biography">Biography</option>
+              <option value="comedy">Comedy</option>
+              <option value="crime">Crime</option>
+              <option value="documentary">Documentary</option>
+              <option value="drama">Drama</option>
+              <option value="family">Family</option>
+              <option value="fantasy">Fantasy</option>
+              <option value="film-noir">Film-Noir</option>
+              <option value="history">History</option>
+              <option value="horror">Horror</option>
+              <option value="music">Music</option>
+              <option value="musical">Musical</option>
+              <option value="mystery">Mystery</option>
+              <option value="romance">Romance</option>
+              <option value="sci-fi">Sci-Fi</option>
+              <option value="sport">Sport</option>
+              <option value="thriller">Thriller</option>
+              <option value="war">War</option>
+              <option value="western">Western</option>
             </select>
           </div>
         </div>
@@ -63,6 +70,9 @@
 
         <div class="col s3">
           <div class="input-field">
+            <div class="center-align">
+              <i class="fa-solid fa-hourglass-start fa-beat fa-lg" style="color: #ff0000;"></i>
+            </div>
             <select id="duration-dropdown">
               <option value="" disabled selected>Duration</option>
               <option value="60">&lt 1 hr</option>
@@ -74,6 +84,9 @@
         </div>
         <div class="col s3">
           <div class="input-field">
+            <div class="center-align">
+              <i class="fa-solid fa-tag fa-beat fa-lg" style="color: #ff0000;"></i>
+            </div>
             <select id="type-dropdown">
               <option value="" disabled selected>Type</option>
               <option value="films/movies">Films/Movies</option>
