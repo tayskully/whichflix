@@ -2,6 +2,10 @@
 var apiKeyTmbd = "76c745d0d38df70f6fb5ec449119b744";
 var apiKeyOmbd = "3c12800d";
 
+var genreDropdown = $("#genre-dropdown");
+var durationValue = $("#duration-dropdown").val();
+var typeValue = $("#type-dropdown").val();
+
 //DATA=============================
 // adds range slider
 var slider = document.getElementById("test-slider");
@@ -31,11 +35,12 @@ noUiSlider.create(slider, {
   //   }),
 });
 
+var yearRangeValue = slider.noUiSlider.get();
+
 //FUNCTIONS =======================
 var userGenre = null;
 //fetch request TMBD
 function getTmbdData() {
-  genreDropdown = $("#genre-dropdown");
   genreDropdown.on("change", function () {
     var userGenre = genreDropdown.val();
     updateApiRequest(userGenre);
@@ -87,12 +92,6 @@ $("#search-form").submit(function (event) {
   console.log("form clicked");
   // Get user input from the search input field
   var searchQuery = $("#search").val();
-
-  // Get selected values from dropdowns
-  var genreValue = $("#genre-dropdown").val();
-  var yearRangeValue = slider.noUiSlider.get();
-  var durationValue = $("#duration-dropdown").val();
-  var typeValue = $("#type-dropdown").val();
 
   // Create an object to store the user's preferences
   var userPreferences = {
