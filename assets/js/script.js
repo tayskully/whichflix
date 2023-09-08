@@ -58,6 +58,7 @@ function updateApiRequest(userGenre) {
       .then(function (data) {
         if (data) {
           console.log(data.results);
+          
           getOmbdData(data);
         } else {
           console.log("No data received");
