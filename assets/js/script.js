@@ -93,19 +93,34 @@ function updateApiRequest() {
     });
 }
 
-// // getTmbdData();
-// // fetch request OMDB
-// function getOmbdData() {
-//   var queryURL = `http://www.omdbapi.com/?apikey=${apiKeyOmbd}&`;
-//   fetch(queryURL).then(function (response) {
-//     if (response.ok) {
-//       response.json().then(function (data) {
-//         console.log(data);
-//       });
-//     }
-//   });
-// }
-// getOmbdData();
+// fetch request OMDB
+function getOmbdData(data) {
+  //loops through data received from TMDB fetch request
+  for (var i = 0; i < data.results.length; i++) {
+    var nameFromTMDBData = data.results[i].original_title;
+    var correctName = nameFromTMDBData.replace(/\s/g, "+");
+    console.log(correctName);
+    //adds updated name from TMDB without spaces to the URL
+    var queryURL = `http://www.omdbapi.com/?t=${correctName}&apikey=${apiKeyOmbd}`;
+
+    fetch(queryURL)
+      .then(function (response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error("OMDB Error: " + response.statusText);
+          return null;
+        }
+      })
+      .then(function (data) {
+        if (data) {
+          console.log(data);
+        } else {
+          console.log("no data received from OMDB");
+        }
+      });
+  }
+}
 
 //USER INTERACTIONS================
 // Handle form submission
