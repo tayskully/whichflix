@@ -34,28 +34,22 @@ fetch(queryURL)
     }
   });
 
+function displayMovies(data) {
+  var movieContainer = $("#movie-container");
+  movieContainer.empty();
 
+  data.results.forEach(function (movieData) {
+    var movieTitle = movieData.title;
+    var moviePoster =
+      `https://image.tmdb.org/t/p/original/` + movieData.poster_path;
+    var movieOverview = movieData.overview;
 
-function displayMovies(data){
-  var movieTitle = data.results[1].title;
-  console.log(movieTitle);
+    // movieContainer.innerHTML= "";
 
-  var moviePoster = `https://image.tmdb.org/t/p/original/`+ data.results[1].poster_path;
-  console.log(moviePoster);
+    // data.results.forEach(function (data){
+    var cardDiv = $('<div class="card">');
 
-  var movieOverview = data.results[1].overview;
-  console.log(movieOverview);
-
-  var movieContainer = $('#movie-container');
-
-  movieContainer.innerHTML= "";
-
-  // data.results.forEach(function (data){
-    var cardDiv = $('<div>');
-    cardDiv.attr('class','card');
-
-    
-    var cardContent =`
+    var cardContent = `
     <div class="card-image waves-effect waves-block waves-light">
       <img class="activator" src="${moviePoster}" alt="${movieTitle}">
     </div>
@@ -68,16 +62,15 @@ function displayMovies(data){
       <p>${movieOverview}</p>
     </div>
   `;
-  console.log(cardContent);
+    console.log(cardContent);
 
-  cardDiv.append(cardContent);
-  movieContainer.append(cardDiv);
+    cardDiv.html(cardContent);
+    movieContainer.append(cardDiv);
+  });
 
-// });
+  // });
 }
-
 // function getTmbdData(data)
-
 
 // getTmbdData();
 
