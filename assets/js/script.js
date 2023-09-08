@@ -40,21 +40,30 @@ var yearRangeValue = slider.noUiSlider.get();
 //FUNCTIONS =======================
 var userGenre = null;
 
-var startYear = yearRangeValue[0];
-var endYear = yearRangeValue[1];
+// var startYear = yearRangeValue[0];
+// var endYear = yearRangeValue[1];
 // console.log(startYear);
 // console.log(endYear);
 //fetch request TMBD
 function getTmbdData() {
+  slider.noUiSlider.on("change", function () {
+    yearRangeValue = slider.noUiSlider.get();
+    console.log(yearRangeValue);
+    startYear = yearRangeValue[0];
+    endYear = yearRangeValue[1];
+    console.log(startYear);
+    console.log(endYear);
+    updateApiRequest(userGenre, startYear, endYear);
+  });
   genreDropdown.on("change", function () {
     var userGenre = genreDropdown.val();
-    updateApiRequest(userGenre);
+    updateApiRequest(userGenre, startYear, endYear);
   });
 }
 
-function updateApiRequest(userGenre) {
+function updateApiRequest(userGenre, startYear, endYear) {
   if (userGenre !== null) {
-    var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&with_genres=${userGenre}&sort_by=vote_average.desc&vote_count.gte=2500`;
+    var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&with_genres=${userGenre}&release_date.gte=${startYear}&release_date.lte=${endYear}&sort_by=vote_average.desc&vote_count.gte=2500`;
 
     fetch(queryURL)
       .then(function (response) {
