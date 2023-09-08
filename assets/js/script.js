@@ -39,66 +39,99 @@ var yearRangeValue = slider.noUiSlider.get();
 
 //FUNCTIONS =======================
 let userGenre;
+let startDate;
+let endDate;
 
-// var startYear = yearRangeValue[0];
-// var endYear = yearRangeValue[1];
-// console.log(startYear);
-// console.log(endYear);
+function getSliderValues() {
+  yearRangeValue = slider.noUiSlider.get();
+  // console.log(yearRangeValue);
+  var startYear = yearRangeValue[0];
+  var endYear = yearRangeValue[1];
+  startDate = `${startYear}-01-01`;
+  endDate = `${endYear}-12-31`;
+  // console.log(startDate);
+  // console.log(endDate);
+  return [startDate, endDate];
+}
+
+function getGenreValue() {
+  userGenre = genreDropdown.val();
+  // console.log(userGenre);
+  return userGenre;
+}
+
 //fetch request TMBD
-function getTmbdData() {
-  slider.noUiSlider.on("change", function () {
-    yearRangeValue = slider.noUiSlider.get();
-    console.log(yearRangeValue);
-    var startYear = yearRangeValue[0];
-    var endYear = yearRangeValue[1];
-    const startDate = `${startYear}-01-01`;
-    const endDate = `${endYear}-12-31`;
-    console.log(startDate);
-    console.log(endDate);
-    updateApiRequest(userGenre, startDate, endDate);
-  });
-  genreDropdown.on("change", function () {
-    var userGenre = genreDropdown.val();
-    updateApiRequest(userGenre);
-  });
+// function getTmbdData() {
+//   slider.noUiSlider.on("change", function () {
+//     yearRangeValue = slider.noUiSlider.get();
+//     console.log(yearRangeValue);
+//     var startYear = yearRangeValue[0];
+//     var endYear = yearRangeValue[1];
+//     const startDate = `${startYear}-01-01`;
+//     const endDate = `${endYear}-12-31`;
+//     console.log(startDate);
+//     console.log(endDate);
+//     updateApiRequest(userGenre, startDate, endDate);
+//   });
+// genreDropdown.on("change", function () {
+//   userGenre = genreDropdown.val();
+//   updateApiRequest(userGenre, startDate, endDate);
+// });
+
+// someInput.on("change", updateApiRequest)
+slider.noUiSlider.on("change", updateApiRequest);
+genreDropdown.on("change", updateApiRequest);
+
+function updateApiRequest() {
+  // get all the values from the inputs
+
+  // get slider values
+  var sliderValues = getSliderValues(); // returns an array
+  console.log(sliderValues);
+
+  // get genre value
+  var userGenre = getGenreValue(); // returns a string
+  console.log(userGenre);
+
+  // build the query url
+  var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&language=en-US`;
+  if (userGenre) queryURL += `&with_genres=${userGenre}`;
+  if (sliderValues[0] && sliderValues[1])
+    queryURL += `&release_date.gte=${sliderValues[0]}&release_date.lte=${sliderValues[1]}`;
+  // queryUrl = `&sort_by=vote_average.desc&vote_count.gte=2500`;
+
+  // make the request
+  fetch(queryURL)
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.error("Error: " + response.statusText);
+        return null;
+      }
+    })
+    .then(function (data) {
+      if (data) {
+        console.log(data.results);
+      } else {
+        console.log("No data received");
+      }
+    });
 }
 
-function updateApiRequest(userGenre, startDate, endDate) {
-  if (userGenre !== null) {
-    var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&with_genres=${userGenre}&release_date.gte=${startDate}&release_date.lte=${endDate}&sort_by=vote_average.desc&vote_count.gte=2500`;
-
-    fetch(queryURL)
-      .then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          console.error("Error: " + response.statusText);
-          return null;
-        }
-      })
-      .then(function (data) {
-        if (data) {
-          console.log(data.results);
-        } else {
-          console.log("No data received");
-        }
-      });
-  }
-}
-
-getTmbdData();
-// fetch request OMDB
-function getOmbdData() {
-  var queryURL = `http://www.omdbapi.com/?apikey=${apiKeyOmbd}&`;
-  fetch(queryURL).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
-        console.log(data);
-      });
-    }
-  });
-}
-getOmbdData();
+// // getTmbdData();
+// // fetch request OMDB
+// function getOmbdData() {
+//   var queryURL = `http://www.omdbapi.com/?apikey=${apiKeyOmbd}&`;
+//   fetch(queryURL).then(function (response) {
+//     if (response.ok) {
+//       response.json().then(function (data) {
+//         console.log(data);
+//       });
+//     }
+//   });
+// }
+// getOmbdData();
 
 //USER INTERACTIONS================
 // Handle form submission
@@ -112,7 +145,7 @@ $("#search-form").submit(function (event) {
   // Create an object to store the user's preferences
   var userPreferences = {
     searchQuery: searchQuery,
-    genre: genreValue,
+    genre: userGenre,
     yearRange: yearRangeValue,
     duration: durationValue,
     type: typeValue,
@@ -127,10 +160,12 @@ $("#search-form").submit(function (event) {
   // console.log(parsedPreferences);
 
   // For demonstration, we'll just display a confirmation message
-  alert("Your preferences have been saved locally.");
+  // alert("Your preferences have been saved locally.");
+
+  updateApiRequest();
 
   // Redirect to the results page
-  window.location.href = "result-page.html";
+  // window.location.href = "result-page.html";
 
   // You can further process the data or update the page content.
 });
