@@ -38,7 +38,7 @@ noUiSlider.create(slider, {
 var yearRangeValue = slider.noUiSlider.get();
 
 //FUNCTIONS =======================
-var userGenre = null;
+let userGenre;
 
 // var startYear = yearRangeValue[0];
 // var endYear = yearRangeValue[1];
@@ -49,21 +49,23 @@ function getTmbdData() {
   slider.noUiSlider.on("change", function () {
     yearRangeValue = slider.noUiSlider.get();
     console.log(yearRangeValue);
-    startYear = yearRangeValue[0];
-    endYear = yearRangeValue[1];
-    console.log(startYear);
-    console.log(endYear);
-    updateApiRequest(userGenre, startYear, endYear);
+    var startYear = yearRangeValue[0];
+    var endYear = yearRangeValue[1];
+    const startDate = `${startYear}-01-01`;
+    const endDate = `${endYear}-12-31`;
+    console.log(startDate);
+    console.log(endDate);
+    updateApiRequest(userGenre, startDate, endDate);
   });
   genreDropdown.on("change", function () {
     var userGenre = genreDropdown.val();
-    updateApiRequest(userGenre, startYear, endYear);
+    updateApiRequest(userGenre);
   });
 }
 
-function updateApiRequest(userGenre, startYear, endYear) {
+function updateApiRequest(userGenre, startDate, endDate) {
   if (userGenre !== null) {
-    var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&with_genres=${userGenre}&release_date.gte=${startYear}&release_date.lte=${endYear}&sort_by=vote_average.desc&vote_count.gte=2500`;
+    var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&with_genres=${userGenre}&release_date.gte=${startDate}&release_date.lte=${endDate}&sort_by=vote_average.desc&vote_count.gte=2500`;
 
     fetch(queryURL)
       .then(function (response) {
