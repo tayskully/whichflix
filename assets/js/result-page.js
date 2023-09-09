@@ -56,6 +56,13 @@ function searchMovie(searchInput) {
   if (searchInput.length > 1)
     //if there is more than one word typed in
     queryURL += `%20${searchInput[1]}`;
+    if (searchInput.length > 2)
+    //if there is more than one word typed in
+    queryURL += `%20${searchInput[2]}`;
+    if (searchInput.length > 3)
+    //if there is more than one word typed in
+    queryURL += `%20${searchInput[3]}`;
+    
 
   fetch(queryURL)
     .then(function (response) {
