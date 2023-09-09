@@ -2,7 +2,12 @@
 var apiKeyTmbd = "76c745d0d38df70f6fb5ec449119b744";
 var apiKeyOmbd = "3c12800d";
 
+var genreDropdown = $("#genre-dropdown");
+var durationValue = $("#duration-dropdown").val();
+var runTimeDropdown = $("#duration-dropdown");
+
 //DATA=============================
+var slider = document.getElementById("test-slider");
 
 //FUNCTIONS =======================
 //fetch request TMBD
@@ -56,13 +61,12 @@ function searchMovie(searchInput) {
   if (searchInput.length > 1)
     //if there is more than one word typed in
     queryURL += `%20${searchInput[1]}`;
-    if (searchInput.length > 2)
+  if (searchInput.length > 2)
     //if there is more than one word typed in
     queryURL += `%20${searchInput[2]}`;
-    if (searchInput.length > 3)
+  if (searchInput.length > 3)
     //if there is more than one word typed in
     queryURL += `%20${searchInput[3]}`;
-    
 
   fetch(queryURL)
     .then(function (response) {
@@ -83,8 +87,7 @@ function searchMovie(searchInput) {
 }
 getSearchInput(); //should call elsewhere but here for now
 
-
-//render movies 
+//render movies
 function displayMovies(data) {
   var movieContainer = $("#movie-container");
   movieContainer.empty();
@@ -149,7 +152,6 @@ function displayMovies(data) {
 $(document).ready(function () {
   $(".sidenav").sidenav();
   $(".dropdown-trigger").dropdown();
-  var slider = document.getElementById("test-slider");
 
   var format = {
     to: function (value) {
