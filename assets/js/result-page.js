@@ -9,6 +9,7 @@ var apiKeyOmbd = "3c12800d";
 //retrive userPreferences as an onject
 var userData = JSON.parse(localStorage.getItem("userPreferences"));
 console.log(userData);
+var searchInput = userData.searchQuery;
 
 var userGenre = userData.genre;
 console.log(userGenre);
@@ -33,6 +34,46 @@ fetch(queryURL)
       //   console.log("No data received");
     }
   });
+
+//test User Input Search function========================================================
+
+function getSearchInput() {
+  if (searchInput === "") {
+    console.log("no search entry");
+    return;
+    //read other parameters only
+  } else {
+    searchInput = searchInput.split(" "); //if more than one word, makes an array
+    console.log(searchInput); //showing it's split correctly
+    searchMovie(searchInput);
+  }
+}
+function searchMovie(searchInput) {
+  var queryURL = `https://api.themoviedb.org/3/search/movie?api_key=${apiKeyTmbd}&query=${searchInput[0]}`;
+  if (searchInput.length > 1)
+    //there is more than one word
+    queryURL += `%20${searchInput[1]}`;
+
+  fetch(queryURL)
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.error(response.statusText);
+        return null;
+      }
+    })
+    .then(function (data) {
+      if (data) {
+        console.log(data);
+      } else {
+        console.log("no data received");
+      }
+    });
+}
+getSearchInput();
+
+//=================================================================
 
 function displayMovies(data) {
   var movieContainer = $("#movie-container");
@@ -65,7 +106,7 @@ function displayMovies(data) {
       <p>${movieOverview}</p>
     </div>
   `;
-    console.log(cardContent);
+    // console.log(cardContent);
 
     cardDiv.html(cardContent);
     colDiv.append(cardDiv);
