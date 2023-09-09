@@ -37,6 +37,7 @@ fetch(queryURL)
 function displayMovies(data) {
   var movieContainer = $("#movie-container");
   movieContainer.empty();
+  rowDiv = $('<div class="row">');
 
   data.results.forEach(function (movieData) {
     var movieTitle = movieData.title;
@@ -47,6 +48,8 @@ function displayMovies(data) {
     // movieContainer.innerHTML= "";
 
     // data.results.forEach(function (data){
+    var colDiv = $('<div class="col s12 m6 l4">');
+
     var cardDiv = $('<div class="card">');
 
     var cardContent = `
@@ -65,9 +68,11 @@ function displayMovies(data) {
     console.log(cardContent);
 
     cardDiv.html(cardContent);
-    movieContainer.append(cardDiv);
+    colDiv.append(cardDiv);
+    rowDiv.append(colDiv);
   });
 
+  movieContainer.append(rowDiv);
   // });
 }
 // function getTmbdData(data)
