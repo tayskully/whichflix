@@ -69,6 +69,10 @@ nav {
     height: auto;
     margin-right: auto;
   }
+/* main section styles */
+main {
+  padding-top:80px;
+}
 
   
   /* Search form styles */
@@ -81,6 +85,7 @@ nav {
     border-radius: 5px;
     padding: 10px;
     width: 100%;
+    background-color:#333 ;
   }
   
   .search-btn {
@@ -88,10 +93,17 @@ nav {
     font-weight: bold;
   }
   
+  #center-me {
+    display:flex;
+    justify-content: center;
+  }
   /* Container styles */
   .container {
+    display: flex;
+    flex-direction:row;
+    flex-wrap:wrap;
     background-color: #111;
-    padding: 80px;
+    padding: 80px 0 80px 0;
     border-radius: 10px;
     margin-top: 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -108,8 +120,8 @@ nav {
     color: #fff !important;
   }
   
-  #test-slider {
-    margin-top: 10px;
+  #slider-div {
+    margin: 40px 20px 0 20px
   }
 
   /* Dropdown option styles */

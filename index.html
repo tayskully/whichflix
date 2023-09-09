@@ -16,131 +16,124 @@
     <link rel="stylesheet" href="./assets/css/nouislider.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
-  <body>
+  <body style="height: 100vh">
     <header>
       <nav>
         <div class="nav-wrap">
           <a href="someimage..." class="brand-logo"></a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="./favorite-page.html">Favorites</a></li>
-            <li><a href="linktocontact...">Contact</a></li>
-          </ul>
+          <ul id="nav-mobile" class="right hide-on-med-and-down"></ul>
         </div>
       </nav>
     </header>
-    <div class="container">
+    <!-- search area -->
+    <main>
       <div class="row">
-        <div class="col s3">
-          <div class="input-field">
-            <div class="center-align">
-              <i
-                class="fa-solid fa-film fa-beat fa-lg"
-                style="color: #fa0025"
-              ></i>
+        <div class="col s12">
+          <div class="col m3 l3 s12">
+            <div class="input-field">
+              <div class="center-align">
+                <i
+                  class="fa-solid fa-film fa-beat fa-lg"
+                  style="color: #fa0025"
+                ></i>
+              </div>
+              <select id="genre-dropdown">
+                <option value="" disabled selected>Genre</option>
+                <option value="28">Action</option>
+                <option value="12">Adventure</option>
+                <option value="16">Animation</option>
+                <option value="35">Comedy</option>
+                <option value="80">Crime</option>
+                <option value="99">Documentary</option>
+                <option value="18">Drama</option>
+                <option value="10751">Family</option>
+                <option value="14">Fantasy</option>
+                <option value="36">History</option>
+                <option value="27">Horror</option>
+                <option value="10402">Music</option>
+                <option value="9648">Mystery</option>
+                <option value="10749">Romance</option>
+                <option value="878">Sci-Fi</option>
+                <option value="10770">TV Movie</option>
+                <option value="53">Thriller</option>
+                <option value="10752">War</option>
+                <option value="37">Western</option>
+              </select>
             </div>
-            <select id="genre-dropdown">
-              <option value="" disabled selected>Genre</option>
-              <option value="28">Action</option>
-              <option value="12">Adventure</option>
-              <option value="16">Animation</option>
-              <option value="35">Comedy</option>
-              <option value="80">Crime</option>
-              <option value="99">Documentary</option>
-              <option value="18">Drama</option>
-              <option value="10751">Family</option>
-              <option value="14">Fantasy</option>
-              <option value="36">History</option>
-              <option value="27">Horror</option>
-              <option value="10402">Music</option>
-              <option value="9648">Mystery</option>
-              <option value="10749">Romance</option>
-              <option value="878">Sci-Fi</option>
-              <option value="10770">TV Movie</option>
-              <option value="53">Thriller</option>
-              <option value="10752">War</option>
-              <option value="37">Western</option>
-            </select>
+          </div>
+
+          <!-- slider -->
+          <div class="col m3 l3 s12" id="slider-div">
+            <div class="input-field">
+              <div id="test-slider"></div>
+              <p class="center-align">Year Range</p>
+              <div id="test-slider"></div>
+            </div>
+          </div>
+
+          <div class="col m3 l3 s12">
+            <div class="input-field">
+              <div class="center-align">
+                <i
+                  class="fa-solid fa-hourglass-start fa-beat fa-lg"
+                  style="color: #ff0000"
+                ></i>
+              </div>
+              <select id="duration-dropdown">
+                <option value="" disabled selected>Duration</option>
+                <option value="45 60">&lt 1 hr</option>
+                <option value="90 120">1.5 hrs - 2 hrs</option>
+                <option value="120 180">2 hrs - 3 hrs</option>
+                <option value="180 1000">&gt 3 hrs</option>
+              </select>
+            </div>
+          </div>
+          <div class="col m2 l2 s12">
+            <div class="input-field">
+              <div class="center-align">
+                <i
+                  class="fa-solid fa-tag fa-beat fa-lg"
+                  style="color: #ff0000"
+                ></i>
+              </div>
+              <select id="type-dropdown">
+                <option value="" disabled selected>Type</option>
+                <option value="films/movies">Films/Movies</option>
+                <option value="tv series">TV Series</option>
+              </select>
+            </div>
           </div>
         </div>
 
-        <!-- slider -->
-        <div class="col s3">
-          <div class="input-field">
-            <div id="test-slider"></div>
-            <p class="center-align">Year Range</p>
-            <div id="test-slider"></div>
-          </div>
-        </div>
-
-        <div class="col s3">
-          <div class="input-field">
-            <div class="center-align">
-              <i
-                class="fa-solid fa-hourglass-start fa-beat fa-lg"
-                style="color: #ff0000"
-              ></i>
-            </div>
-            <select id="duration-dropdown">
-              <option value="" disabled selected>Duration</option>
-              <option value="45 60">&lt 1 hr</option>
-              <option value="90 120">1.5 hrs - 2 hrs</option>
-              <option value="120 180">2 hrs - 3 hrs</option>
-              <option value="180 1000">&gt 3 hrs</option>
-            </select>
-          </div>
-        </div>
-        <div class="col s3">
-          <div class="input-field">
-            <div class="center-align">
-              <i
-                class="fa-solid fa-tag fa-beat fa-lg"
-                style="color: #ff0000"
-              ></i>
-            </div>
-            <select id="type-dropdown">
-              <option value="" disabled selected>Type</option>
-              <option value="films/movies">Films/Movies</option>
-              <option value="podcasts">Podcasts</option>
-              <option value="tv series">TV Series</option>
-              <option value="shorts">Shorts</option>
-              <option value="video games">Video Games</option>
-            </select>
+        <div class="row">
+          <div class="col s12">
+            <!-- form -->
+            <form id="search-form">
+              <div class="col s12">
+                <div class="input-field col l6 m6 s12">
+                  <input
+                    class="validate"
+                    type="text"
+                    id="search"
+                    placeholder="Or search a movie title"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="col s12 center-align">
+                  <button
+                    class="btn waves-effect waves-light btn-large search-btn"
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- container -->
-    <div class="container valign-wrapper" style="height: 100vh">
-      <div class="row">
-        <div class="col s12 center-align">
-          <!-- form -->
-          <form id="search-form">
-            <div class="row">
-              <div class="input-field col s12">
-                <input
-                  class="validate"
-                  type="text"
-                  id="search"
-                  placeholder="Search for a movie"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12 center-align">
-                <button
-                  class="btn waves-effect waves-light btn-large search-btn"
-                  type="submit"
-                >
-                  Search
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <main></main>
+    </main>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
