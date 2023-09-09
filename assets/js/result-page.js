@@ -35,7 +35,7 @@ fetch(queryURL)
     }
   });
 
-//test User Input Search function========================================================
+//User Input Search function========================================================
 
 function getSearchInput() {
   if (searchInput === "") {
@@ -51,7 +51,7 @@ function getSearchInput() {
 function searchMovie(searchInput) {
   var queryURL = `https://api.themoviedb.org/3/search/movie?api_key=${apiKeyTmbd}&query=${searchInput[0]}`;
   if (searchInput.length > 1)
-    //there is more than one word
+    //if there is more than one word typed in
     queryURL += `%20${searchInput[1]}`;
 
   fetch(queryURL)
@@ -71,10 +71,10 @@ function searchMovie(searchInput) {
       }
     });
 }
-getSearchInput();
+getSearchInput(); //should call elsewhere but here for now
 
-//=================================================================
 
+//render movies 
 function displayMovies(data) {
   var movieContainer = $("#movie-container");
   movieContainer.empty();
@@ -106,7 +106,7 @@ function displayMovies(data) {
       <p>${movieOverview}</p>
     </div>
   `;
-    // console.log(cardContent);
+    console.log(cardContent);
 
     cardDiv.html(cardContent);
     colDiv.append(cardDiv);
