@@ -58,15 +58,14 @@ function getGenreValue() {
 
 function getRunTime() {
   userRunTime = runTimeDropdown.val();
-  if (userRunTime === null) {
-    userRunTime = "90 120";
-    userRunTime = userRunTime.split(" ");
-    return userRunTime;
-  } else {
-    userRunTime = userRunTime.split(" ");
-    return userRunTime;
-  }
-}
+if (userRunTime === null) {
+  userRunTime = "45 500"
+  userRunTime = userRunTime.split(" ");
+  return userRunTime;
+} else {
+  userRunTime = userRunTime.split(" ");
+  return userRunTime;
+}}
 
 slider.noUiSlider.on("change", updateApiRequest);
 genreDropdown.on("change", updateApiRequest);
