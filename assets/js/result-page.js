@@ -9,6 +9,8 @@ var apiKeyOmbd = "3c12800d";
 //retrive userPreferences as an onject
 var userData = JSON.parse(localStorage.getItem("userPreferences"));
 console.log(userData);
+//defines search input from local storage data
+var searchInput = userData.searchQuery;
 
 var userGenre = userData.genre;
 console.log(userGenre);
@@ -34,6 +36,55 @@ fetch(queryURL)
     }
   });
 
+//User Input Search function========================================================
+
+function getSearchInput() {
+  //search input defined on line 13, from local storage
+  if (searchInput === "") {
+    console.log("no search entry");
+    return;
+    //read other parameters only
+  } else {
+    searchInput = searchInput.split(" "); //if more than one word, makes an array
+    console.log(searchInput); //showing it's split correctly
+    searchMovie(searchInput);
+  }
+}
+//fetch request for movie search
+function searchMovie(searchInput) {
+  var queryURL = `https://api.themoviedb.org/3/search/movie?api_key=${apiKeyTmbd}&query=${searchInput[0]}`;
+  if (searchInput.length > 1)
+    //if there is more than one word typed in
+    queryURL += `%20${searchInput[1]}`;
+    if (searchInput.length > 2)
+    //if there is more than one word typed in
+    queryURL += `%20${searchInput[2]}`;
+    if (searchInput.length > 3)
+    //if there is more than one word typed in
+    queryURL += `%20${searchInput[3]}`;
+    
+
+  fetch(queryURL)
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.error(response.statusText);
+        return null;
+      }
+    })
+    .then(function (data) {
+      if (data) {
+        console.log(data);
+      } else {
+        console.log("no data received");
+      }
+    });
+}
+getSearchInput(); //should call elsewhere but here for now
+
+
+//render movies 
 function displayMovies(data) {
   var movieContainer = $("#movie-container");
   movieContainer.empty();

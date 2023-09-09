@@ -56,7 +56,7 @@ function getGenreValue() {
   return userGenre;
 }
 
-function getRunTime() { 
+function getRunTime() {
   userRunTime = runTimeDropdown.val();
 if (userRunTime === null) {
   userRunTime = "45 500"
