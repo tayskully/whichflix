@@ -161,6 +161,8 @@ $("#search-form").submit(function (event) {
     type: typeValue,
   };
 
+  //clear the input field
+  $("#search").val("");
   // Store the user's preferences in localStorage
   localStorage.setItem("userPreferences", JSON.stringify(userPreferences));
 
