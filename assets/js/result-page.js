@@ -3,8 +3,9 @@ var apiKeyTmbd = "76c745d0d38df70f6fb5ec449119b744";
 var apiKeyOmbd = "3c12800d";
 
 var genreDropdown = $("#genre-dropdown");
-var durationValue = $("#duration-dropdown").val();
+// var durationValue = $("#duration-dropdown").val();
 var runTimeDropdown = $("#duration-dropdown");
+var searchButton = $("#sidebar-search-btn");
 
 //DATA=============================
 var slider = document.getElementById("test-slider");
@@ -119,7 +120,7 @@ function displayMovies(data) {
       <p>${movieOverview}</p>
     </div>
   `;
-    console.log(cardContent);
+    // console.log(cardContent);
 
     cardDiv.html(cardContent);
     colDiv.append(cardDiv);
@@ -129,7 +130,42 @@ function displayMovies(data) {
   movieContainer.append(rowDiv);
   // });
 }
-// function getTmbdData(data)
+
+function getSliderValues() {
+  yearRangeValue = slider.noUiSlider.get();
+  // console.log(yearRangeValue);
+  var startYear = yearRangeValue[0];
+  var endYear = yearRangeValue[1];
+  startDate = `${startYear}-01-01`;
+  endDate = `${endYear}-12-31`;
+  return [startDate, endDate];
+}
+
+genreDropdown.on("change", function () {
+  var userGenre = genreDropdown.val();
+  console.log("USER GENRE:", userGenre);
+});
+
+function buildQueryURL() {
+  var userYears = getSliderValues();
+
+  var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&language=en-US`;
+  var userGenre = genreDropdown.val();
+  var userRunTime = runTimeDropdown.val();
+  if (userGenre) {
+    queryURL += `&with_genres=${userGenre}`;
+    console.log("USER GENRE:", userGenre);
+  }
+  if (userYears[0] && userYears[1]) {
+    queryURL += `&release_date.gte=${userYears[0]}&release_date.lte=${userYears[1]}`;
+    console.log("USER YEARS:", userYears);
+  }
+  if (userRunTime) {
+    queryURL += `&with_runtime.gte=${userRunTime[0]}&with_runtime.lte=${userRunTime[1]}`;
+    console.log("USER RUNTIME:", userRunTime);
+  }
+  return queryURL;
+}
 
 // getTmbdData();
 
@@ -152,6 +188,8 @@ function displayMovies(data) {
 $(document).ready(function () {
   $(".sidenav").sidenav();
   $(".dropdown-trigger").dropdown();
+  $("#genre-dropdown").dropdown();
+  $("#duration-dropdown").dropdown();
 
   var format = {
     to: function (value) {
@@ -173,5 +211,29 @@ $(document).ready(function () {
       max: 2023,
     },
     format,
+  });
+
+  searchButton.on("click", function (event) {
+    event.preventDefault();
+    var sidenavURL = buildQueryURL();
+
+    fetch(sidenavURL)
+      .then(function (response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error("Error: " + response.statusText);
+          return null;
+        }
+      })
+      .then(function (data) {
+        if (data) {
+          // console.log(data.results);
+          displayMovies(data);
+          //   getOmbdData(data);
+          // } else {
+          //   console.log("No data received");
+        }
+      });
   });
 });
