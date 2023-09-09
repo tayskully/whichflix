@@ -9,6 +9,7 @@ var apiKeyOmbd = "3c12800d";
 //retrive userPreferences as an onject
 var userData = JSON.parse(localStorage.getItem("userPreferences"));
 console.log(userData);
+//defines search input from local storage data
 var searchInput = userData.searchQuery;
 
 var userGenre = userData.genre;
@@ -38,6 +39,7 @@ fetch(queryURL)
 //User Input Search function========================================================
 
 function getSearchInput() {
+  //search input defined on line 13, from local storage
   if (searchInput === "") {
     console.log("no search entry");
     return;
@@ -48,6 +50,7 @@ function getSearchInput() {
     searchMovie(searchInput);
   }
 }
+//fetch request for movie search
 function searchMovie(searchInput) {
   var queryURL = `https://api.themoviedb.org/3/search/movie?api_key=${apiKeyTmbd}&query=${searchInput[0]}`;
   if (searchInput.length > 1)
