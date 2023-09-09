@@ -141,11 +141,6 @@ function getSliderValues() {
   return [startDate, endDate];
 }
 
-genreDropdown.on("change", function () {
-  var userGenre = genreDropdown.val();
-  console.log("USER GENRE:", userGenre);
-});
-
 function buildQueryURL() {
   var userYears = getSliderValues();
 
