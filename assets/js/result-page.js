@@ -10,6 +10,8 @@ var runTimeDropdown = $("#duration-dropdown");
 var searchButton = $("#sidebar-search-btn");
 var slider = document.getElementById("test-slider");
 
+var isFetching = false;
+
 //DATA==========================================================================
 //retrieve userPreferences as an object
 var userData = JSON.parse(localStorage.getItem("userPreferences"));
@@ -58,6 +60,7 @@ var searchInput = userData.searchQuery;
 //======================================================
 
 function updateApiRequest() {
+  isFetching=true;
   // get all the values from the inputs
 
   // get slider values
@@ -80,6 +83,9 @@ function updateApiRequest() {
   // queryUrl = `&sort_by=vote_average.desc&vote_count.gte=2500`;
   if (userRunTime)
     queryURL += `&with_runtime.gte=${userRunTime[0]}&with_runtime.lte=${userRunTime[1]}`;
+  //if this function is running after page 1 
+  //if 
+  if(i) queryURL += `&page=${i}`;
 
   // make the request
   fetch(queryURL)
@@ -102,6 +108,11 @@ function updateApiRequest() {
 }
 
 updateApiRequest(); //loads with page
+
+function changePage (){
+  for (var i =0; i<20; i++)
+  {}
+}
 
 //User Input Search function====================
 
@@ -345,3 +356,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+//event listener for scroll function
+window.addEventListener('scroll', () => {
+  // if (isFetching || !hasMore) {
+  //   return
+  // } 
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight)
+  console.log("scrolled to bottom") 
+updateApiRequest();
+})
