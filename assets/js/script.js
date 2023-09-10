@@ -1,7 +1,4 @@
 //DEPENDENCIES ====================
-var apiKeyTmbd = "76c745d0d38df70f6fb5ec449119b744";
-var apiKeyOmbd = "3c12800d";
-
 var genreDropdown = $("#genre-dropdown");
 var durationValue = $("#duration-dropdown").val();
 var typeValue = $("#type-dropdown").val();
@@ -33,29 +30,26 @@ noUiSlider.create(slider, {
   format,
 });
 
-var yearRangeValue = slider.noUiSlider.get();
-
 //FUNCTIONS =======================
 let userGenre;
 let startDate;
 let endDate;
 let userRunTime;
-
+//gets slider value as array, adds date format accepted by api
 function getSliderValues() {
   yearRangeValue = slider.noUiSlider.get();
-  // console.log(yearRangeValue);
   var startYear = yearRangeValue[0];
   var endYear = yearRangeValue[1];
   startDate = `${startYear}-01-01`;
   endDate = `${endYear}-12-31`;
   return [startDate, endDate];
 }
-
+//gets value code from genre
 function getGenreValue() {
   userGenre = genreDropdown.val();
   return userGenre;
 }
-
+//gets runtime as greater than and less than run time, sets default to search basically all movies, splits into array
 function getRunTime() {
   userRunTime = runTimeDropdown.val();
   if (userRunTime === null) {
@@ -67,7 +61,7 @@ function getRunTime() {
     return userRunTime;
   }
 }
-
+//runs funtions on change
 slider.noUiSlider.on("change", getValues);
 genreDropdown.on("change", getValues);
 runTimeDropdown.on("change", getValues);
@@ -110,15 +104,6 @@ $("#search-form").submit(function (event) {
 
   // Store the user's preferences in localStorage
   localStorage.setItem("userPreferences", JSON.stringify(userPreferences));
-
-  // You can also retrieve data from localStorage later if needed
-  // var storedPreferences = localStorage.getItem('userPreferences');
-  // var parsedPreferences = JSON.parse(storedPreferences);
-  // console.log(parsedPreferences);
-
-  // For demonstration, we'll just display a confirmation message
-  // alert("Your preferences have been saved locally.");
-
   getValues();
 
   // Redirect to the results page
