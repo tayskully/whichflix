@@ -7,7 +7,6 @@ var durationValue = $("#duration-dropdown").val();
 var typeValue = $("#type-dropdown").val();
 var runTimeDropdown = $("#duration-dropdown");
 
-
 var searchButton = $("#sidebar-search-btn");
 var slider = document.getElementById("test-slider");
 
@@ -62,15 +61,15 @@ function updateApiRequest() {
   // get all the values from the inputs
 
   // get slider values
-  var sliderValues = userData.yearRange  // returns an array
+  var sliderValues = userData.yearRange; // returns an array
   console.log(sliderValues);
 
   // get genre value
-  var userGenre = userData.genre // returns a string
+  var userGenre = userData.genre; // returns a string
   console.log(userGenre);
 
   //get the runtime value
-  var userRunTime = userData.duration
+  var userRunTime = userData.duration;
   console.log(userRunTime);
 
   // build the query url
@@ -95,6 +94,7 @@ function updateApiRequest() {
     .then(function (data) {
       if (data) {
         console.log(data.results);
+        displayMovies(data);
       } else {
         console.log("No data received");
       }
@@ -102,7 +102,6 @@ function updateApiRequest() {
 }
 
 updateApiRequest();
-
 
 //User Input Search function====================
 
@@ -294,39 +293,41 @@ $(document).ready(function () {
       });
   });
 });
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   // Initialize the sidenav
-  var sidenavElem = document.querySelector('.sidenav');
+  var sidenavElem = document.querySelector(".sidenav");
   var sidenavInstance = M.Sidenav.init(sidenavElem);
 
   // Initialize the custom dropdown triggers within the sidenav
-  var dropdownTriggers = document.querySelectorAll('.sidenav .dropdown-trigger');
+  var dropdownTriggers = document.querySelectorAll(
+    ".sidenav .dropdown-trigger"
+  );
 
   dropdownTriggers.forEach(function (trigger) {
-    trigger.addEventListener('click', function (event) {
+    trigger.addEventListener("click", function (event) {
       event.preventDefault();
       event.stopPropagation();
       var dropdown = trigger.nextElementSibling;
 
       // Check if the dropdown is open
-      var isOpen = dropdown.classList.contains('active');
+      var isOpen = dropdown.classList.contains("active");
 
       // Close all dropdowns
       dropdownTriggers.forEach(function (otherTrigger) {
-        otherTrigger.nextElementSibling.classList.remove('active');
+        otherTrigger.nextElementSibling.classList.remove("active");
       });
 
       // Toggle the dropdown's active state
       if (!isOpen) {
-        dropdown.classList.add('active');
+        dropdown.classList.add("active");
       }
     });
   });
 
   // Close the dropdowns when clicking outside
-  document.addEventListener('click', function () {
+  document.addEventListener("click", function () {
     dropdownTriggers.forEach(function (trigger) {
-      trigger.nextElementSibling.classList.remove('active');
+      trigger.nextElementSibling.classList.remove("active");
     });
   });
 });
