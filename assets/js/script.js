@@ -30,6 +30,7 @@ noUiSlider.create(slider, {
   format,
 });
 
+yearRangeValue = slider.noUiSlider.get();
 //FUNCTIONS =======================
 let userGenre;
 let startDate;
