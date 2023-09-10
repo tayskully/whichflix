@@ -95,6 +95,7 @@ function updateApiRequest() {
       if (data) {
         console.log(data.results);
         displayMovies(data);
+        getOmbdData(data);
       } else {
         console.log("No data received");
       }
