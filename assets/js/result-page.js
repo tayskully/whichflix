@@ -1,48 +1,109 @@
-//DEPENDENCIES ====================
+//DEPENDENCIES =================================================================
 var apiKeyTmbd = "76c745d0d38df70f6fb5ec449119b744";
 var apiKeyOmbd = "3c12800d";
 
 var genreDropdown = $("#genre-dropdown");
-// var durationValue = $("#duration-dropdown").val();
+var durationValue = $("#duration-dropdown").val();
+var typeValue = $("#type-dropdown").val();
 var runTimeDropdown = $("#duration-dropdown");
-var searchButton = $("#sidebar-search-btn");
 
-//DATA=============================
+var searchButton = $("#sidebar-search-btn");
 var slider = document.getElementById("test-slider");
 
-//FUNCTIONS =======================
-//fetch request TMBD
-//retrive userPreferences as an onject
+//DATA==========================================================================
+//retrieve userPreferences as an object
 var userData = JSON.parse(localStorage.getItem("userPreferences"));
 console.log(userData);
 //defines search input from local storage data
 var searchInput = userData.searchQuery;
 
-var userGenre = userData.genre;
-console.log(userGenre);
+//FUNCTIONS =====================================================================
+//fetch request TMBD
 
-var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&with_genres=${userGenre}&sort_by=vote_average.desc&vote_count.gte=2500`;
+//not needed
+// let userGenre;
+// let startDate;
+// let endDate;
+// let userRunTime;
 
-fetch(queryURL)
-  .then(function (response) {
-    if (response.ok) {
-      return response.json();
-    } else {
-      console.error("Error: " + response.statusText);
-      return null;
-    }
-  })
-  .then(function (data) {
-    if (data) {
-      console.log(data.results);
-      displayMovies(data);
-      //   getOmbdData(data);
-      // } else {
-      //   console.log("No data received");
-    }
-  });
+// function getSliderValues() {
+//   yearRangeValue = slider.noUiSlider.get();
+//   // console.log(yearRangeValue);
+//   var startYear = yearRangeValue[0];
+//   var endYear = yearRangeValue[1];
+//   startDate = `${startYear}-01-01`;
+//   endDate = `${endYear}-12-31`;
+//   return [startDate, endDate];
+// }
 
-//User Input Search function========================================================
+// function getGenreValue() {
+//   userGenre = genreDropdown.val();
+//   return userGenre;
+// }
+
+// function getRunTime() {
+//   userRunTime = runTimeDropdown.val();
+// if (userRunTime === null) {
+//   userRunTime = "45 500"
+//   userRunTime = userRunTime.split(" ");
+//   return userRunTime;
+// } else {
+//   userRunTime = userRunTime.split(" ");
+//   return userRunTime;
+// }}
+
+// slider.noUiSlider.on("change", updateApiRequest);
+// genreDropdown.on("change", updateApiRequest);
+// runTimeDropdown.on("change", updateApiRequest);
+//======================================================
+
+function updateApiRequest() {
+  // get all the values from the inputs
+
+  // get slider values
+  var sliderValues = userData.yearRange; // returns an array
+  console.log(sliderValues);
+
+  // get genre value
+  var userGenre = userData.genre; // returns a string
+  console.log(userGenre);
+
+  //get the runtime value
+  var userRunTime = userData.duration;
+  console.log(userRunTime);
+
+  // build the query url
+  var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&language=en-US`;
+  if (userGenre) queryURL += `&with_genres=${userGenre}`;
+  if (sliderValues[0] && sliderValues[1])
+    queryURL += `&release_date.gte=${sliderValues[0]}&release_date.lte=${sliderValues[1]}`;
+  // queryUrl = `&sort_by=vote_average.desc&vote_count.gte=2500`;
+  if (userRunTime)
+    queryURL += `&with_runtime.gte=${userRunTime[0]}&with_runtime.lte=${userRunTime[1]}`;
+
+  // make the request
+  fetch(queryURL)
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.error("Error: " + response.statusText);
+        return null;
+      }
+    })
+    .then(function (data) {
+      if (data) {
+        console.log(data.results);
+        displayMovies(data);
+      } else {
+        console.log("No data received");
+      }
+    });
+}
+
+updateApiRequest(); //loads with page
+
+//User Input Search function====================
 
 function getSearchInput() {
   //search input defined on line 13, from local storage
@@ -86,7 +147,36 @@ function searchMovie(searchInput) {
       }
     });
 }
-getSearchInput(); //should call elsewhere but here for now
+getSearchInput(); //loads with page
+
+// fetch request OMDB=====================================
+function getOmbdData(data) {
+  //loops through data received from TMDB fetch request
+  for (var i = 0; i < data.results.length; i++) {
+    var nameFromTMDBData = data.results[i].original_title;
+    var correctName = nameFromTMDBData.replace(/\s/g, "+");
+    console.log(correctName);
+    //adds updated name from TMDB without spaces to the URL
+    var queryURL = `http://www.omdbapi.com/?t=${correctName}&apikey=${apiKeyOmbd}`;
+
+    fetch(queryURL)
+      .then(function (response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error("OMDB Error: " + response.statusText);
+          return null;
+        }
+      })
+      .then(function (data) {
+        if (data) {
+          console.log(data);
+        } else {
+          console.log("no data received from OMDB");
+        }
+      });
+  }
+}
 
 //render movies
 function displayMovies(data) {
@@ -162,21 +252,6 @@ function buildQueryURL() {
   return queryURL;
 }
 
-// getTmbdData();
-
-// // fetch request OMDB
-// function getOmbdData() {
-//   var queryURL = `http://www.omdbapi.com/?apikey=${apiKeyOmbd}&`;
-//   fetch(queryURL).then(function (response) {
-//     if (response.ok) {
-//       response.json().then(function (data) {
-//         console.log(data);
-//       });
-//     }
-//   });
-// }
-// getOmbdData();
-
 //USER INTERACTIONS================
 
 // INITIALIZATION==================
@@ -232,39 +307,41 @@ $(document).ready(function () {
       });
   });
 });
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   // Initialize the sidenav
-  var sidenavElem = document.querySelector('.sidenav');
+  var sidenavElem = document.querySelector(".sidenav");
   var sidenavInstance = M.Sidenav.init(sidenavElem);
 
   // Initialize the custom dropdown triggers within the sidenav
-  var dropdownTriggers = document.querySelectorAll('.sidenav .dropdown-trigger');
+  var dropdownTriggers = document.querySelectorAll(
+    ".sidenav .dropdown-trigger"
+  );
 
   dropdownTriggers.forEach(function (trigger) {
-    trigger.addEventListener('click', function (event) {
+    trigger.addEventListener("click", function (event) {
       event.preventDefault();
       event.stopPropagation();
       var dropdown = trigger.nextElementSibling;
 
       // Check if the dropdown is open
-      var isOpen = dropdown.classList.contains('active');
+      var isOpen = dropdown.classList.contains("active");
 
       // Close all dropdowns
       dropdownTriggers.forEach(function (otherTrigger) {
-        otherTrigger.nextElementSibling.classList.remove('active');
+        otherTrigger.nextElementSibling.classList.remove("active");
       });
 
       // Toggle the dropdown's active state
       if (!isOpen) {
-        dropdown.classList.add('active');
+        dropdown.classList.add("active");
       }
     });
   });
 
   // Close the dropdowns when clicking outside
-  document.addEventListener('click', function () {
+  document.addEventListener("click", function () {
     dropdownTriggers.forEach(function (trigger) {
-      trigger.nextElementSibling.classList.remove('active');
+      trigger.nextElementSibling.classList.remove("active");
     });
   });
 });
