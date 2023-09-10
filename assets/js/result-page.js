@@ -153,6 +153,12 @@ function displayMovies(data) {
     var moviePoster =
       `https://image.tmdb.org/t/p/original/` + movieData.poster_path;
     var movieOverview = movieData.overview;
+    var movieScore= movieData.vote_average;
+    var movieYear= movieData.release_date;
+    movieYear= movieYear.split("-");
+  
+    
+
 
     // movieContainer.innerHTML= "";
 
@@ -165,13 +171,14 @@ function displayMovies(data) {
     <div class="card-image waves-effect waves-block waves-light">
       <img class="activator" src="${moviePoster}" alt="${movieTitle}">
     </div>
-    <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4">${movieTitle}<i class="material-icons right">more_vert</i></span>
-      <p><a href="#">This is a link</a></p>
+    <div class="card-content black">
+      <span class="card-title activator red-text text-darken-4">${movieTitle + ", " + movieYear[0]}<i class="material-icons right">more_vert</i></span>
+      
     </div>
-    <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">${movieTitle}<i class="material-icons right">close</i></span>
-      <p>${movieOverview}</p>
+    <div class="card-reveal black">
+      <span class="card-title red-text text-darken-4">${movieTitle}<i class="material-icons right">close</i></span>
+      <p class= white-text>${movieOverview}</p>
+      <p class= white text >${"IMDB: " + movieScore + "/10"}
     </div>
   `;
     // console.log(cardContent);
