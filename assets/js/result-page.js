@@ -1,48 +1,110 @@
-//DEPENDENCIES ====================
+//DEPENDENCIES =================================================================
 var apiKeyTmbd = "76c745d0d38df70f6fb5ec449119b744";
 var apiKeyOmbd = "3c12800d";
 
 var genreDropdown = $("#genre-dropdown");
-// var durationValue = $("#duration-dropdown").val();
+var durationValue = $("#duration-dropdown").val();
+var typeValue = $("#type-dropdown").val();
 var runTimeDropdown = $("#duration-dropdown");
-var searchButton = $("#sidebar-search-btn");
 
-//DATA=============================
+
+var searchButton = $("#sidebar-search-btn");
 var slider = document.getElementById("test-slider");
 
-//FUNCTIONS =======================
-//fetch request TMBD
-//retrive userPreferences as an onject
+//DATA==========================================================================
+//retrieve userPreferences as an object
 var userData = JSON.parse(localStorage.getItem("userPreferences"));
 console.log(userData);
 //defines search input from local storage data
 var searchInput = userData.searchQuery;
 
-var userGenre = userData.genre;
-console.log(userGenre);
+//FUNCTIONS =====================================================================
+//fetch request TMBD
 
-var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&with_genres=${userGenre}&sort_by=vote_average.desc&vote_count.gte=2500`;
+//not needed
+// let userGenre;
+// let startDate;
+// let endDate;
+// let userRunTime;
 
-fetch(queryURL)
-  .then(function (response) {
-    if (response.ok) {
-      return response.json();
-    } else {
-      console.error("Error: " + response.statusText);
-      return null;
-    }
-  })
-  .then(function (data) {
-    if (data) {
-      console.log(data.results);
-      displayMovies(data);
-      //   getOmbdData(data);
-      // } else {
-      //   console.log("No data received");
-    }
-  });
+// function getSliderValues() {
+//   yearRangeValue = slider.noUiSlider.get();
+//   // console.log(yearRangeValue);
+//   var startYear = yearRangeValue[0];
+//   var endYear = yearRangeValue[1];
+//   startDate = `${startYear}-01-01`;
+//   endDate = `${endYear}-12-31`;
+//   return [startDate, endDate];
+// }
 
-//User Input Search function========================================================
+// function getGenreValue() {
+//   userGenre = genreDropdown.val();
+//   return userGenre;
+// }
+
+// function getRunTime() {
+//   userRunTime = runTimeDropdown.val();
+// if (userRunTime === null) {
+//   userRunTime = "45 500"
+//   userRunTime = userRunTime.split(" ");
+//   return userRunTime;
+// } else {
+//   userRunTime = userRunTime.split(" ");
+//   return userRunTime;
+// }}
+
+// slider.noUiSlider.on("change", updateApiRequest);
+// genreDropdown.on("change", updateApiRequest);
+// runTimeDropdown.on("change", updateApiRequest);
+//======================================================
+
+function updateApiRequest() {
+  // get all the values from the inputs
+
+  // get slider values
+  var sliderValues = userData.yearRange  // returns an array
+  console.log(sliderValues);
+
+  // get genre value
+  var userGenre = userData.genre // returns a string
+  console.log(userGenre);
+
+  //get the runtime value
+  var userRunTime = userData.duration
+  console.log(userRunTime);
+
+  // build the query url
+  var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&language=en-US`;
+  if (userGenre) queryURL += `&with_genres=${userGenre}`;
+  if (sliderValues[0] && sliderValues[1])
+    queryURL += `&release_date.gte=${sliderValues[0]}&release_date.lte=${sliderValues[1]}`;
+  // queryUrl = `&sort_by=vote_average.desc&vote_count.gte=2500`;
+  if (userRunTime)
+    queryURL += `&with_runtime.gte=${userRunTime[0]}&with_runtime.lte=${userRunTime[1]}`;
+
+  // make the request
+  fetch(queryURL)
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.error("Error: " + response.statusText);
+        return null;
+      }
+    })
+    .then(function (data) {
+      if (data) {
+        console.log(data.results);
+      } else {
+        console.log("No data received");
+      }
+    });
+}
+
+updateApiRequest();
+
+
+//User Input Search function====================
 
 function getSearchInput() {
   //search input defined on line 13, from local storage
