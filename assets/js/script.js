@@ -30,12 +30,13 @@ noUiSlider.create(slider, {
   format,
 });
 
+yearRangeValue = slider.noUiSlider.get();
 //FUNCTIONS =======================
 let userGenre;
 let startDate;
 let endDate;
 let userRunTime;
-//gets slider value as array, adds date format accepted by api
+//gets slider value as array, adds date format. do we need this still?????? 
 function getSliderValues() {
   yearRangeValue = slider.noUiSlider.get();
   var startYear = yearRangeValue[0];
