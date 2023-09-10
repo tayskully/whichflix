@@ -203,7 +203,6 @@ function displayMovies(data) {
     </div>
     <div class="card-content">
       <span class="card-title activator grey-text text-darken-4">${movieTitle}<i class="material-icons right">more_vert</i></span>
-      <p><a href="#">This is a link</a></p>
     </div>
     <div class="card-reveal">
       <span class="card-title grey-text text-darken-4">${movieTitle}<i class="material-icons right">close</i></span>
