@@ -36,7 +36,7 @@ function updateApiRequest() {
   console.log(userRunTime);
 
   // build the query url
-  var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&language=en-US`;
+  var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&language=en-US&&sort_by=vote_average.desc&vote_count.gte=500`;
   if (userGenre) queryURL += `&with_genres=${userGenre}`;
   if (sliderValues[0] && sliderValues[1])
     queryURL += `&release_date.gte=${sliderValues[0]}&release_date.lte=${sliderValues[1]}`;
