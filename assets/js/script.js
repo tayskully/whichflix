@@ -61,7 +61,7 @@ function getRunTime() {
 if (userRunTime === null) {
   userRunTime = "45 500"
   userRunTime = userRunTime.split(" ");
-  return userRunTime;
+  return userRunTime, console.log(userRunTime);
 } else {
   userRunTime = userRunTime.split(" ");
   return userRunTime;
@@ -157,12 +157,13 @@ $("#search-form").submit(function (event) {
     searchQuery: searchQuery,
     genre: userGenre,
     yearRange: yearRangeValue,
-    duration: durationValue,
+    duration: userRunTime,
     type: typeValue,
   };
 
   //clear the input field
   $("#search").val("");
+
   // Store the user's preferences in localStorage
   localStorage.setItem("userPreferences", JSON.stringify(userPreferences));
 
