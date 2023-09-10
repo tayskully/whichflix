@@ -1,113 +1,118 @@
 /* Header styles */
 header {
-    background-color: #111;
-    padding: 10px 0;
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    z-index: 1000;
+  background-color: #111;
+  padding: 10px 0;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  z-index: 1000;
 }
 
 .btn-small {
-    background:#e50914;
-    color:#000
+  background: #e50914;
+  color: #000;
 }
 
 .brand-logo:hover {
-    color: #ff6600; /* Darker red on hover */
+  color: #ff6600; /* Darker red on hover */
 }
 
 /* Style the navigation links */
 #nav-mobile li a {
-    font-size: 16px;
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s ease;
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 #nav-mobile li a:hover {
-    color: #ff6600; /* Darker color on hover */
+  color: #ff6600; /* Darker color on hover */
 }
 
 /* Background color for the body */
 body {
-    background-color: #121212;
+  background-color: #121212;
 }
 
 /* Center-align text */
 .center-align {
-    color: white;
+  color: white;
 }
 
 /* Navigation bar styles */
 nav {
-    background-color: #000;
-    height: 60px;
-    color: white;
+  background-color: #000;
+  height: 60px;
+  color: white;
 }
 
 .brand-logo {
-    font-size: 1.5rem;
-    margin-left: 20px;
-    padding: 10px 0;
+  font-size: 1.5rem;
+  margin-left: 20px;
+  padding: 10px 0;
 }
 
 /* Search form styles */
 #search-form {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 #search {
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
 }
-
 
 /* Container styles */
 .container {
-    background-color: #111;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background-color: #111;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Dropdown and slider styles */
 .select-dropdown {
-    background-color: #222 !important;
-    color: #fff !important;
+  background-color: #222 !important;
+  color: #fff !important;
 }
 
 #duration-dropdown,
 #type-dropdown {
-    background-color: #222 !important;
-    color: #fff !important;
+  background-color: #222 !important;
+  color: #fff !important;
 }
 
 #test-slider {
-    margin-top: 10px;
+  margin-top: 10px;
 }
-.sidenav{
-    background-color: #000;
+.sidenav {
+  background-color: #000;
 }
-.noUi-connect{
-    background:#e50914;
+.noUi-connect {
+  background: #e50914;
 }
-.sidenav li a{
-    color:#e50914;
+.sidenav li a {
+  color: #e50914;
 }
 .dropdown-content {
-    background-color: #e50914;
+  background-color: #e50914;
 }
 .btn-flat {
-    color:#fff;
+  color: #fff;
 }
 .btn-flat:hover {
-    background-color: #000;
+  background-color: #000;
 }
 .logo-image {
-    width: 30px;
-    height: auto;
-    margin-right: 8px;
+  width: 30px;
+  height: auto;
+  margin-right: 8px;
+}
+.centered-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
