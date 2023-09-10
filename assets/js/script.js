@@ -58,22 +58,22 @@ function getGenreValue() {
 
 function getRunTime() {
   userRunTime = runTimeDropdown.val();
-if (userRunTime === null) {
-  userRunTime = "45 500"
-  userRunTime = userRunTime.split(" ");
-  return userRunTime, console.log(userRunTime);
-} else {
-  userRunTime = userRunTime.split(" ");
-  return userRunTime;
-}}
+  if (userRunTime === null) {
+    userRunTime = "45 500";
+    userRunTime = userRunTime.split(" ");
+    return userRunTime, console.log(userRunTime);
+  } else {
+    userRunTime = userRunTime.split(" ");
+    return userRunTime;
+  }
+}
 
-slider.noUiSlider.on("change", updateApiRequest);
-genreDropdown.on("change", updateApiRequest);
-runTimeDropdown.on("change", updateApiRequest);
+slider.noUiSlider.on("change", getValues);
+genreDropdown.on("change", getValues);
+runTimeDropdown.on("change", getValues);
 
-function updateApiRequest() {
+function getValues() {
   // get all the values from the inputs
-
   // get slider values
   var sliderValues = getSliderValues(); // returns an array
   console.log(sliderValues);
@@ -85,62 +85,6 @@ function updateApiRequest() {
   //get the runtime value
   var userRunTime = getRunTime();
   console.log(userRunTime);
-
-  // build the query url
-  var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&language=en-US`;
-  if (userGenre) queryURL += `&with_genres=${userGenre}`;
-  if (sliderValues[0] && sliderValues[1])
-    queryURL += `&release_date.gte=${sliderValues[0]}&release_date.lte=${sliderValues[1]}`;
-  // queryUrl = `&sort_by=vote_average.desc&vote_count.gte=2500`;
-  if (userRunTime)
-    queryURL += `&with_runtime.gte=${userRunTime[0]}&with_runtime.lte=${userRunTime[1]}`;
-
-  // make the request
-  fetch(queryURL)
-    .then(function (response) {
-      if (response.ok) {
-        return response.json();
-      } else {
-        console.error("Error: " + response.statusText);
-        return null;
-      }
-    })
-    .then(function (data) {
-      if (data) {
-        console.log(data.results);
-      } else {
-        console.log("No data received");
-      }
-    });
-}
-
-// fetch request OMDB
-function getOmbdData(data) {
-  //loops through data received from TMDB fetch request
-  for (var i = 0; i < data.results.length; i++) {
-    var nameFromTMDBData = data.results[i].original_title;
-    var correctName = nameFromTMDBData.replace(/\s/g, "+");
-    console.log(correctName);
-    //adds updated name from TMDB without spaces to the URL
-    var queryURL = `http://www.omdbapi.com/?t=${correctName}&apikey=${apiKeyOmbd}`;
-
-    fetch(queryURL)
-      .then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          console.error("OMDB Error: " + response.statusText);
-          return null;
-        }
-      })
-      .then(function (data) {
-        if (data) {
-          console.log(data);
-        } else {
-          console.log("no data received from OMDB");
-        }
-      });
-  }
 }
 
 //USER INTERACTIONS================
@@ -173,9 +117,9 @@ $("#search-form").submit(function (event) {
   // console.log(parsedPreferences);
 
   // For demonstration, we'll just display a confirmation message
-  alert("Your preferences have been saved locally.");
+  // alert("Your preferences have been saved locally.");
 
-  updateApiRequest();
+  getValues();
 
   // Redirect to the results page
   window.location.href = "result-page.html";
