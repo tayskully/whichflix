@@ -3,9 +3,9 @@ var apiKeyTmbd = "76c745d0d38df70f6fb5ec449119b744";
 var apiKeyOmbd = "3c12800d";
 
 var genreDropdown = $("#genre-dropdown");
-var durationValue = $("#duration-dropdown").val();
+var durationValue = $("#dropdown3").val();
 var typeValue = $("#type-dropdown").val();
-var runTimeDropdown = $("#duration-dropdown");
+var runTimeDropdown = $("#dropdown3");
 
 var searchButton = $("#sidebar-search-btn");
 var slider = document.getElementById("test-slider");
