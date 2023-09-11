@@ -19,4 +19,4 @@ MIT License
 
 ## Tests
 
-Go the extra mile and write tests for your application. Then provide examples on how to run them here.
+https://horton-michael.github.io/movie-night-planner/
