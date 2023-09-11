@@ -117,9 +117,8 @@ getSearchInput(); //loads with page
 function getOmbdData(data) {
   //loops through data received from TMDB fetch request
   for (var i = 0; i < data.results.length; i++) {
-    var nameFromTMDBData = data.results[i].original_title;
+    var nameFromTMDBData = data.results[i].title;
     var correctName = nameFromTMDBData.replace(/\s/g, "+");
-    console.log(correctName);
     //adds updated name from TMDB without spaces to the URL
     var queryURL = `http://www.omdbapi.com/?t=${correctName}&apikey=${apiKeyOmbd}`;
 
@@ -134,14 +133,15 @@ function getOmbdData(data) {
       })
       .then(function (data) {
         if (data) {
-          console.log(data);
+          let omdbData= data;
+          console.log(omdbData);
+          return omdbData;
         } else {
           console.log("no data received from OMDB");
         }
       });
   }
 }
-
 //render movies
 function displayMovies(data) {
   var movieContainer = $("#movie-container");
@@ -156,6 +156,7 @@ function displayMovies(data) {
     var movieScore= movieData.vote_average;
     var movieYear= movieData.release_date;
     movieYear= movieYear.split("-");
+
   
     
 
