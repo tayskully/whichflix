@@ -52,13 +52,9 @@
         </li>
         <li><div class="divider"></div></li>
         <li>
-          <a
-            id="genre-dropdown"
-            class="waves-effect dropdown-trigger"
-            data-target="dropdown1"
-            >Genre</a
-          >
-          <select id="dropdown1" class="dropdown-content">
+          <a>Genre</a>
+          <select multiple id="genre-dropdown">
+            <option value="" disabled selected>Select a genre</option>
             <option class="btn-flat waves-effect" value="28">Action</option>
             <option class="btn-flat waves-effect" value="12">Adventure</option>
             <option class="btn-flat waves-effect" value="16">Animation</option>
@@ -85,30 +81,20 @@
           </select>
         </li>
         <li>
-          <a class="waves-effect dropdown-trigger" data-target="dropdown2"
-            >Type</a
-          >
+          <a>Runtime</a>
         </li>
-        <select id="dropdown2" class="dropdown-content">
-          <option class="btn-flat waves-effect" value="1">Films/Movies</option>
-          <option class="btn-flat waves-effect" value="2">Podcasts</option>
-          <option class="btn-flat waves-effect" value="3">TV Series</option>
-          <option class="btn-flat waves-effect" value="4">Shorts</option>
-          <option class="btn-flat waves-effect" value="5">Video Games</option>
-        </select>
-        <li>
-          <a
-            id="duration-dropdown"
-            class="waves-effect dropdown-trigger"
-            data-target="dropdown3"
-            >Runtime</a
-          >
-        </li>
-        <select id="dropdown3" class="dropdown-content">
-          <option class="btn-flat waves-effect" value="1">&lt 1 hr</option>
-          <option class="btn-flat waves-effect" value="2">1.5 - 2 hrs</option>
-          <option class="btn-flat waves-effect" value="3">2 - 3 hrs</option>
-          <option class="btn-flat waves-effect" value="4">&gt 3 hrs</option>
+        <select id="dropdown3">
+          <option value="" disabled selected>Select a duration</option>
+          <option class="btn-flat waves-effect" value="45 60">&lt 1 hr</option>
+          <option class="btn-flat waves-effect" value="90 120">
+            1.5 - 2 hrs
+          </option>
+          <option class="btn-flat waves-effect" value="120 180">
+            2 - 3 hrs
+          </option>
+          <option class="btn-flat waves-effect" value="180 1000">
+            &gt 3 hrs
+          </option>
         </select>
         <li>
           <a href="#!">Release Year</a>
@@ -142,5 +128,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/nouislider.js"></script>
     <script src="./assets/js/result-page.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Dropdown initialization
+        $("select").formSelect();
+      });
+    </script>
   </body>
 </html>

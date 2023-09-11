@@ -3,9 +3,9 @@ var apiKeyTmbd = "76c745d0d38df70f6fb5ec449119b744";
 var apiKeyOmbd = "3c12800d";
 
 var genreDropdown = $("#genre-dropdown");
-var durationValue = $("#duration-dropdown").val();
+var durationValue = $("#dropdown3").val();
 var typeValue = $("#type-dropdown").val();
-var runTimeDropdown = $("#duration-dropdown");
+var runTimeDropdown = $("#dropdown3");
 
 var searchButton = $("#sidebar-search-btn");
 var slider = document.getElementById("test-slider");
@@ -18,15 +18,27 @@ console.log(userData);
 var searchInput = userData.searchQuery;
 
 //FUNCTIONS =====================================================================
-//on page load 
+//on page load
 function whichFetch() {
   if (searchInput === "") {
-    updateApiRequest()
+    updateApiRequest();
   } else {
-    getSearchInput()
+    getSearchInput();
   }
 }
 whichFetch();
+
+function getRunTime() {
+  userRunTime = runTimeDropdown.val();
+  if (userRunTime === null) {
+    userRunTime = "45 500";
+    userRunTime = userRunTime.split(" ");
+    return userRunTime, console.log(userRunTime);
+  } else {
+    userRunTime = userRunTime.split(" ");
+    return userRunTime;
+  }
+}
 
 //fetch request TMBD
 function updateApiRequest() {
@@ -144,7 +156,7 @@ function getOmbdData(data) {
       })
       .then(function (data) {
         if (data) {
-          let omdbData= data;
+          let omdbData = data;
           console.log(omdbData);
           return omdbData;
         } else {
@@ -155,7 +167,6 @@ function getOmbdData(data) {
 }
 //render movies
 function displayMovies(data, omdbData) {
-
   var movieContainer = $("#movie-container");
   movieContainer.empty();
   rowDiv = $('<div class="row">');
@@ -165,10 +176,10 @@ function displayMovies(data, omdbData) {
     var moviePoster =
       `https://image.tmdb.org/t/p/original/` + movieData.poster_path;
     var movieOverview = movieData.overview;
-    var movieScore= movieData.vote_average;
-    var movieYear= movieData.release_date;
-    movieYear= movieYear.split("-");
-    // movieContainer.innerHTML= "";
+    var movieScore = movieData.vote_average;
+    var movieYear = movieData.release_date;
+    movieYear = movieYear.split("-");
+    console.log(omdbData);
 
     // data.results.forEach(function (data){
     var colDiv = $('<div class="col s12 m6 l4">');
@@ -180,7 +191,9 @@ function displayMovies(data, omdbData) {
       <img class="activator" src="${moviePoster}" alt="${movieTitle}">
     </div>
     <div class="card-content black">
-      <span class="card-title activator red-text text-darken-4">${movieTitle + ", " + movieYear[0]}<i class="material-icons right">more_vert</i></span>
+      <span class="card-title activator red-text text-darken-4">${
+        movieTitle + ", " + movieYear[0]
+      }<i class="material-icons right">more_vert</i></span>
       
     </div>
     <div class="card-reveal black">
@@ -200,7 +213,6 @@ function displayMovies(data, omdbData) {
   // });
 }
 function displayMoviesFromSearch(dataFromSearch) {
-
   var movieContainer = $("#movie-container");
   movieContainer.empty();
   rowDiv = $('<div class="row">');
@@ -210,9 +222,9 @@ function displayMoviesFromSearch(dataFromSearch) {
     var moviePoster =
       `https://image.tmdb.org/t/p/original/` + movieData.poster_path;
     var movieOverview = movieData.overview;
-    var movieScore= movieData.vote_average;
-    var movieYear= movieData.release_date;
-    movieYear= movieYear.split("-");
+    var movieScore = movieData.vote_average;
+    var movieYear = movieData.release_date;
+    movieYear = movieYear.split("-");
     console.log(dataFromSearch);
     // movieContainer.innerHTML= "";
 
@@ -226,7 +238,9 @@ function displayMoviesFromSearch(dataFromSearch) {
       <img class="activator" src="${moviePoster}" alt="${movieTitle}">
     </div>
     <div class="card-content black">
-      <span class="card-title activator red-text text-darken-4">${movieTitle + ", " + movieYear[0]}<i class="material-icons right">more_vert</i></span>
+      <span class="card-title activator red-text text-darken-4">${
+        movieTitle + ", " + movieYear[0]
+      }<i class="material-icons right">more_vert</i></span>
       
     </div>
     <div class="card-reveal black">
@@ -261,7 +275,7 @@ function buildQueryURL() {
 
   var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&language=en-US`;
   var userGenre = genreDropdown.val();
-  var userRunTime = runTimeDropdown.val();
+  var userRunTime = getRunTime();
   if (userGenre) {
     queryURL += `&with_genres=${userGenre}`;
     console.log("USER GENRE:", userGenre);
@@ -283,8 +297,12 @@ function buildQueryURL() {
 $(document).ready(function () {
   $(".sidenav").sidenav();
   $(".dropdown-trigger").dropdown();
-  $("#genre-dropdown").dropdown();
+  // $("#genre-dropdown").dropdown();
   $("#duration-dropdown").dropdown();
+
+  // $("#genre-dropdown").on("change", function (event) {
+  //   event.preventDefault();
+  // });
 
   var format = {
     to: function (value) {
@@ -332,41 +350,41 @@ $(document).ready(function () {
       });
   });
 });
-document.addEventListener("DOMContentLoaded", function () {
-  // Initialize the sidenav
-  var sidenavElem = document.querySelector(".sidenav");
-  var sidenavInstance = M.Sidenav.init(sidenavElem);
+// document.addEventListener("DOMContentLoaded", function () {
+//   // Initialize the sidenav
+//   var sidenavElem = document.querySelector(".sidenav");
+//   var sidenavInstance = M.Sidenav.init(sidenavElem);
 
-  // Initialize the custom dropdown triggers within the sidenav
-  var dropdownTriggers = document.querySelectorAll(
-    ".sidenav .dropdown-trigger"
-  );
+//   // Initialize the custom dropdown triggers within the sidenav
+//   var dropdownTriggers = document.querySelectorAll(
+//     ".sidenav .dropdown-trigger"
+//   );
 
-  dropdownTriggers.forEach(function (trigger) {
-    trigger.addEventListener("click", function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      var dropdown = trigger.nextElementSibling;
+//   dropdownTriggers.forEach(function (trigger) {
+//     trigger.addEventListener("click", function (event) {
+//       event.preventDefault();
+//       event.stopPropagation();
+//       var dropdown = trigger.nextElementSibling;
 
-      // Check if the dropdown is open
-      var isOpen = dropdown.classList.contains("active");
+//       // Check if the dropdown is open
+//       var isOpen = dropdown.classList.contains("active");
 
-      // Close all dropdowns
-      dropdownTriggers.forEach(function (otherTrigger) {
-        otherTrigger.nextElementSibling.classList.remove("active");
-      });
+//       // Close all dropdowns
+//       dropdownTriggers.forEach(function (otherTrigger) {
+//         otherTrigger.nextElementSibling.classList.remove("active");
+//       });
 
-      // Toggle the dropdown's active state
-      if (!isOpen) {
-        dropdown.classList.add("active");
-      }
-    });
-  });
+//       // Toggle the dropdown's active state
+//       if (!isOpen) {
+//         dropdown.classList.add("active");
+//       }
+//     });
+//   });
 
-  // Close the dropdowns when clicking outside
-  document.addEventListener("click", function () {
-    dropdownTriggers.forEach(function (trigger) {
-      trigger.nextElementSibling.classList.remove("active");
-    });
-  });
-});
+//   // Close the dropdowns when clicking outside
+//   document.addEventListener("click", function () {
+//     dropdownTriggers.forEach(function (trigger) {
+//       trigger.nextElementSibling.classList.remove("active");
+//     });
+//   });
+// });

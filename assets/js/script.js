@@ -78,7 +78,7 @@ function getValues() {
   console.log(userGenre);
 
   //get the runtime value
-  var userRunTime = getRunTime();
+  var userRunTime = getRunTime(); // returns an array
   console.log(userRunTime);
 }
 
