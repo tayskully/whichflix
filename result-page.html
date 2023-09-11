@@ -58,7 +58,7 @@
             data-target="dropdown1"
             >Genre</a
           >
-          <select id="dropdown1" class="dropdown-content">
+          <select id="dropdown1">
             <option class="btn-flat waves-effect" value="28">Action</option>
             <option class="btn-flat waves-effect" value="12">Adventure</option>
             <option class="btn-flat waves-effect" value="16">Animation</option>
@@ -142,5 +142,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/nouislider.js"></script>
     <script src="./assets/js/result-page.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Dropdown initialization
+        $("select").formSelect();
+      });
+    </script>
   </body>
 </html>
