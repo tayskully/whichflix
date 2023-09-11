@@ -97,15 +97,16 @@ function searchMovie(searchInput) {
   fetch(queryURL)
     .then(function (response) {
       if (response.ok) {
-        return response.json();
+        var dataFromSearch = response.json();
+        return dataFromSearch;
       } else {
         console.error(response.statusText);
         return null;
       }
     })
-    .then(function (data) {
-      if (data) {
-        console.log(data);
+    .then(function (dataFromSearch) {
+      if (dataFromSearch) {
+        console.log(dataFromSearch);
       } else {
         console.log("no data received");
       }
@@ -143,11 +144,48 @@ function getOmbdData(data) {
 }
 
 //render movies
-function displayMovies(data) {
+function displayMovies(data, dataFromSearch) {
+
   var movieContainer = $("#movie-container");
   movieContainer.empty();
   rowDiv = $('<div class="row">');
-
+  if (dataFromSearch) {
+    dataFromSearch.results.forEach(function (movieData) {
+      var movieTitle = movieData.title;
+      var moviePoster =
+        `https://image.tmdb.org/t/p/original/` + movieData.poster_path;
+      var movieOverview = movieData.overview;
+  
+      // movieContainer.innerHTML= "";
+  
+      // data.results.forEach(function (data){
+      var colDiv = $('<div class="col s12 m6 l4">');
+  
+      var cardDiv = $('<div class="card">');
+  
+      var cardContent = `
+      <div class="card-image waves-effect waves-block waves-light">
+        <img class="activator" src="${moviePoster}" alt="${movieTitle}">
+      </div>
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">${movieTitle}<i class="material-icons right">more_vert</i></span>
+        <p><a href="#">This is a link</a></p>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">${movieTitle}<i class="material-icons right">close</i></span>
+        <p>${movieOverview}</p>
+      </div>
+    `;
+      // console.log(cardContent);
+  
+      cardDiv.html(cardContent);
+      colDiv.append(cardDiv);
+      rowDiv.append(colDiv);
+    });
+  
+    movieContainer.append(rowDiv);
+  
+  } else {
   data.results.forEach(function (movieData) {
     var movieTitle = movieData.title;
     var moviePoster =
@@ -183,7 +221,7 @@ function displayMovies(data) {
 
   movieContainer.append(rowDiv);
   // });
-}
+}}
 
 function getSliderValues() {
   yearRangeValue = slider.noUiSlider.get();
