@@ -143,7 +143,7 @@ function getOmbdData(data) {
   }
 }
 //render movies
-function displayMovies(data) {
+function displayMovies(data, omdbData) {
   var movieContainer = $("#movie-container");
   movieContainer.empty();
   rowDiv = $('<div class="row">');
@@ -156,6 +156,7 @@ function displayMovies(data) {
     var movieScore= movieData.vote_average;
     var movieYear= movieData.release_date;
     movieYear= movieYear.split("-");
+    console.log(omdbData);
 
   
     
