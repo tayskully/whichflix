@@ -28,6 +28,18 @@ function whichFetch() {
 }
 whichFetch();
 
+function getRunTime() {
+  userRunTime = runTimeDropdown.val();
+  if (userRunTime === null) {
+    userRunTime = "45 500";
+    userRunTime = userRunTime.split(" ");
+    return userRunTime, console.log(userRunTime);
+  } else {
+    userRunTime = userRunTime.split(" ");
+    return userRunTime;
+  }
+}
+
 //fetch request TMBD
 function updateApiRequest() {
   // get all the values from the inputs
@@ -263,7 +275,7 @@ function buildQueryURL() {
 
   var queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKeyTmbd}&language=en-US`;
   var userGenre = genreDropdown.val();
-  var userRunTime = runTimeDropdown.val();
+  var userRunTime = getRunTime();
   if (userGenre) {
     queryURL += `&with_genres=${userGenre}`;
     console.log("USER GENRE:", userGenre);
