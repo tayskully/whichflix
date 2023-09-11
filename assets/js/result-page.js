@@ -118,9 +118,8 @@ getSearchInput(); //loads with page
 function getOmbdData(data) {
   //loops through data received from TMDB fetch request
   for (var i = 0; i < data.results.length; i++) {
-    var nameFromTMDBData = data.results[i].original_title;
+    var nameFromTMDBData = data.results[i].title;
     var correctName = nameFromTMDBData.replace(/\s/g, "+");
-    console.log(correctName);
     //adds updated name from TMDB without spaces to the URL
     var queryURL = `http://www.omdbapi.com/?t=${correctName}&apikey=${apiKeyOmbd}`;
 
@@ -135,62 +134,35 @@ function getOmbdData(data) {
       })
       .then(function (data) {
         if (data) {
-          console.log(data);
+          let omdbData= data;
+          console.log(omdbData);
+          return omdbData;
         } else {
           console.log("no data received from OMDB");
         }
       });
   }
 }
-
 //render movies
-function displayMovies(data, dataFromSearch) {
+function displayMovies(data, omdbData, dataFromSearch) {
 
   var movieContainer = $("#movie-container");
   movieContainer.empty();
   rowDiv = $('<div class="row">');
-  if (dataFromSearch) {
-    dataFromSearch.results.forEach(function (movieData) {
-      var movieTitle = movieData.title;
-      var moviePoster =
-        `https://image.tmdb.org/t/p/original/` + movieData.poster_path;
-      var movieOverview = movieData.overview;
-  
-      // movieContainer.innerHTML= "";
-  
-      // data.results.forEach(function (data){
-      var colDiv = $('<div class="col s12 m6 l4">');
-  
-      var cardDiv = $('<div class="card">');
-  
-      var cardContent = `
-      <div class="card-image waves-effect waves-block waves-light">
-        <img class="activator" src="${moviePoster}" alt="${movieTitle}">
-      </div>
-      <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">${movieTitle}<i class="material-icons right">more_vert</i></span>
-        <p><a href="#">This is a link</a></p>
-      </div>
-      <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">${movieTitle}<i class="material-icons right">close</i></span>
-        <p>${movieOverview}</p>
-      </div>
-    `;
-      // console.log(cardContent);
-  
-      cardDiv.html(cardContent);
-      colDiv.append(cardDiv);
-      rowDiv.append(colDiv);
-    });
-  
-    movieContainer.append(rowDiv);
-  
-  } else {
+
   data.results.forEach(function (movieData) {
     var movieTitle = movieData.title;
     var moviePoster =
       `https://image.tmdb.org/t/p/original/` + movieData.poster_path;
     var movieOverview = movieData.overview;
+    var movieScore= movieData.vote_average;
+    var movieYear= movieData.release_date;
+    movieYear= movieYear.split("-");
+    console.log(omdbData);
+
+  
+    
+
 
     // movieContainer.innerHTML= "";
 
@@ -203,13 +175,14 @@ function displayMovies(data, dataFromSearch) {
     <div class="card-image waves-effect waves-block waves-light">
       <img class="activator" src="${moviePoster}" alt="${movieTitle}">
     </div>
-    <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4">${movieTitle}<i class="material-icons right">more_vert</i></span>
-      <p><a href="#">This is a link</a></p>
+    <div class="card-content black">
+      <span class="card-title activator red-text text-darken-4">${movieTitle + ", " + movieYear[0]}<i class="material-icons right">more_vert</i></span>
+      
     </div>
-    <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">${movieTitle}<i class="material-icons right">close</i></span>
-      <p>${movieOverview}</p>
+    <div class="card-reveal black">
+      <span class="card-title red-text text-darken-4">${movieTitle}<i class="material-icons right">close</i></span>
+      <p class= white-text>${movieOverview}</p>
+      <p class= white text >${"IMDB: " + movieScore + "/10"}
     </div>
   `;
     // console.log(cardContent);
