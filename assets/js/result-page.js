@@ -18,8 +18,17 @@ console.log(userData);
 var searchInput = userData.searchQuery;
 
 //FUNCTIONS =====================================================================
-//fetch request TMBD
+//on page load 
+function whichFetch() {
+  if (searchInput === "") {
+    updateApiRequest()
+  } else {
+    getSearchInput()
+  }
+}
+whichFetch();
 
+//fetch request TMBD
 function updateApiRequest() {
   // get all the values from the inputs
 
@@ -65,7 +74,7 @@ function updateApiRequest() {
     });
 }
 
-updateApiRequest(); //loads with page
+// updateApiRequest(); //loads with page
 
 //User Input Search function====================
 
@@ -107,12 +116,13 @@ function searchMovie(searchInput) {
     .then(function (dataFromSearch) {
       if (dataFromSearch) {
         console.log(dataFromSearch);
+        displayMoviesFromSearch(dataFromSearch);
       } else {
         console.log("no data received");
       }
     });
 }
-getSearchInput(); //loads with page
+// getSearchInput(); //loads with page
 
 // fetch request OMDB=====================================
 function getOmbdData(data) {
@@ -144,7 +154,7 @@ function getOmbdData(data) {
   }
 }
 //render movies
-function displayMovies(data, omdbData, dataFromSearch) {
+function displayMovies(data, omdbData) {
 
   var movieContainer = $("#movie-container");
   movieContainer.empty();
@@ -158,12 +168,6 @@ function displayMovies(data, omdbData, dataFromSearch) {
     var movieScore= movieData.vote_average;
     var movieYear= movieData.release_date;
     movieYear= movieYear.split("-");
-    console.log(omdbData);
-
-  
-    
-
-
     // movieContainer.innerHTML= "";
 
     // data.results.forEach(function (data){
@@ -194,7 +198,53 @@ function displayMovies(data, omdbData, dataFromSearch) {
 
   movieContainer.append(rowDiv);
   // });
-}}
+}
+function displayMoviesFromSearch(dataFromSearch) {
+
+  var movieContainer = $("#movie-container");
+  movieContainer.empty();
+  rowDiv = $('<div class="row">');
+
+  dataFromSearch.results.forEach(function (movieData) {
+    var movieTitle = movieData.title;
+    var moviePoster =
+      `https://image.tmdb.org/t/p/original/` + movieData.poster_path;
+    var movieOverview = movieData.overview;
+    var movieScore= movieData.vote_average;
+    var movieYear= movieData.release_date;
+    movieYear= movieYear.split("-");
+    console.log(dataFromSearch);
+    // movieContainer.innerHTML= "";
+
+    // data.results.forEach(function (data){
+    var colDiv = $('<div class="col s12 m6 l4">');
+
+    var cardDiv = $('<div class="card">');
+
+    var cardContent = `
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="${moviePoster}" alt="${movieTitle}">
+    </div>
+    <div class="card-content black">
+      <span class="card-title activator red-text text-darken-4">${movieTitle + ", " + movieYear[0]}<i class="material-icons right">more_vert</i></span>
+      
+    </div>
+    <div class="card-reveal black">
+      <span class="card-title red-text text-darken-4">${movieTitle}<i class="material-icons right">close</i></span>
+      <p class= white-text>${movieOverview}</p>
+      <p class= white text >${"IMDB: " + movieScore + "/10"}
+    </div>
+  `;
+    // console.log(cardContent);
+
+    cardDiv.html(cardContent);
+    colDiv.append(cardDiv);
+    rowDiv.append(colDiv);
+  });
+
+  movieContainer.append(rowDiv);
+  // });
+}
 
 function getSliderValues() {
   yearRangeValue = slider.noUiSlider.get();
