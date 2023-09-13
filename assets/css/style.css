@@ -125,6 +125,12 @@ main {
 #slider-div {
   margin: 40px 20px 0 20px;
 }
+.noUi-base {
+  background-color: #333;
+}
+.noUi-handle {
+  background-color: black;
+}
 
 /* Dropdown option styles */
 .select-dropdown.dropdown-content li span {

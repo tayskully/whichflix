@@ -143,7 +143,7 @@ function getOmbdData(data) {
     var nameFromTMDBData = data.results[i].title;
     var correctName = nameFromTMDBData.replace(/\s/g, "+");
     //adds updated name from TMDB without spaces to the URL
-    var queryURL = `http://www.omdbapi.com/?t=${correctName}&apikey=${apiKeyOmbd}`;
+    var queryURL = `https://www.omdbapi.com/?t=${correctName}&apikey=${apiKeyOmbd}`;
 
     fetch(queryURL)
       .then(function (response) {
@@ -198,8 +198,8 @@ function displayMovies(data, omdbData) {
     </div>
     <div class="card-reveal black">
       <span class="card-title red-text text-darken-4">${movieTitle}<i class="material-icons right">close</i></span>
-      <p class= white-text>${movieOverview}</p>
-      <p class= white text >${"IMDB: " + movieScore + "/10"}
+      <h5 class= white-text overview-detail>${movieOverview}</h5>
+      <h4 class= white-text overview-detail>${"IMDB: " + movieScore + "/10"}</h4>
     </div>
   `;
     // console.log(cardContent);
