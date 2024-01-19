@@ -350,6 +350,7 @@ $(document).ready(function () {
       });
   });
 });
+
 // document.addEventListener("DOMContentLoaded", function () {
 //   // Initialize the sidenav
 //   var sidenavElem = document.querySelector(".sidenav");
